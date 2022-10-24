@@ -1,0 +1,52 @@
+{
+    "900465934257520671": {
+        "prefix": "?",
+        "stripAfterPrefix": false,
+        "disabledCommandMessage": "",
+        "moderation": {
+            "moderatorRoles": [],
+            "administratorRoles": [],
+            "protectedRoles": [],
+            "logsChannel": 1027936082018443265,
+            "modLogs": {},
+            "commands": {
+                "ban": {
+                    "enabled": true,
+                    "banDefaultReason": "No Reason",
+                    "banMessageType": "embed",
+                    "banEmbedTitle": "",
+                    "banEmbedDescription": "***__Successfully banned [member.fullName] | [reason]__***",
+                    "banIncludeTimestamp": false,
+                    "banEmbedColor": "0x1c7d44",
+                    "banMessage": "***__Successfully banned [member.fullName]__***",
+                    "banLogs": true,
+                    "banDm": true,
+                    "banDmMessageType": "embed",
+                    "banDmMessageEmbedTitle": "LOL BOZO BANNED",
+                    "banDmMessageEmbedDescription": "coping hard brother",
+                    "banDmMessageEmbedIncludeTimestamp": true,
+                    "banDmMessageEmbedColor": "0x1c7d44",
+                    "banDmMessage": "aisdhasiodhasiudhasiudhsai LOL COPE HARDER BOZO"
+                },
+                "kick": {
+                    "enabled": true,
+                    "kickDefaultReason": "No Reason",
+                    "kickMessageType": "embed",
+                    "kickEmbedTitle": "",
+                    "kickEmbedDescription": "",
+                    "kickIncludeTimestamp": false,
+                    "kickEmbedColor": "",
+                    "kickMessage": "",
+                    "kickLogs": true,
+                    "kickDm": true,
+                    "kickDmMessageType": "embed",
+                    "kickDmMessageEmbedTitle": "",
+                    "kickDmMessageEmbedDescription": "",
+                    "kickDmMessageEmbedIncludeTimestamp": true,
+                    "kickDmMessageEmbedCOlor": "",
+                    "kickDmMessage": ""
+                }
+            }
+        }
+    }
+}
