@@ -21,5 +21,3 @@ async def server():
     return "k ?"
 async def run():
     await app.run_task()
-
-asyncio.run(run())
