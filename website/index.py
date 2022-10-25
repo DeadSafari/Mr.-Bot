@@ -1,3 +1,4 @@
+import asyncio
 import os
 from quart import Quart, render_template, redirect, url_for
 
@@ -20,3 +21,5 @@ async def server():
     return "k ?"
 async def run():
     await app.run_task()
+
+asyncio.run(run())

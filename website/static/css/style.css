@@ -99,7 +99,8 @@ html {
 
 nav,
 .navbar-menu {
-  background-color: black !important;
+  background-color: white !important;
+  color:black;
 }
 
 .navbar-item.nav-dark,
@@ -109,7 +110,7 @@ nav,
 
 .navbar-item,
 .navbar-link {
-  color: white !important;
+  color:black !important;
 }
 
 nav.nav-w {
