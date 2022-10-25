@@ -71,7 +71,7 @@ async def main():
     for cog in os.listdir("./bot/cogs"):
         if cog.endswith(".py"):
             try:
-                await bot.load_extension(f"cogs.{cog[:-3]}")
+                await bot.load_extension(f"bot.cogs.{cog[:-3]}")
             except:
                 traceback.print_exc()
     await bot.start(os.getenv('TOKEN'))
@@ -101,5 +101,3 @@ def updateDatabase(bot: Bot):
     with open("data.json", mode="w") as f:
         json.dump(data, f, indent=4)
     return
-
-asyncio.run(main())

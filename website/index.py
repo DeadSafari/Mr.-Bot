@@ -18,5 +18,5 @@ async def login():
 @app.route("/server")
 async def server():
     return "k ?"
-
-app.run(debug=True)
+async def run():
+    await app.run_task()

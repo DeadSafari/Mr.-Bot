@@ -8,7 +8,26 @@
             "administratorRoles": [],
             "protectedRoles": [],
             "logsChannel": 1027936082018443265,
-            "modLogs": {},
+            "modLogs": {
+                "623522585300172838": [
+                    {
+                        "member": 623522585300172838,
+                        "moderator": 958390293760184392,
+                        "type": "kick",
+                        "time": 1666616682.1797671,
+                        "reason": "k ?"
+                    }
+                ],
+                "899340441277849620": [
+                    {
+                        "member": 899340441277849620,
+                        "moderator": 958390293760184392,
+                        "type": "kick",
+                        "time": 1666709267.1970017,
+                        "reason": "k ?"
+                    }
+                ]
+            },
             "commands": {
                 "ban": {
                     "enabled": true,
@@ -33,17 +52,17 @@
                     "kickDefaultReason": "No Reason",
                     "kickMessageType": "embed",
                     "kickEmbedTitle": "",
-                    "kickEmbedDescription": "",
+                    "kickEmbedDescription": "***__Successfully kicked [member.fullName] | [reason]__***",
                     "kickIncludeTimestamp": false,
-                    "kickEmbedColor": "",
-                    "kickMessage": "",
+                    "kickEmbedColor": "0x1c7d44",
+                    "kickMessage": "***__Successfully kicked [member.fullName] | [reason]__***",
                     "kickLogs": true,
                     "kickDm": true,
                     "kickDmMessageType": "embed",
-                    "kickDmMessageEmbedTitle": "",
-                    "kickDmMessageEmbedDescription": "",
+                    "kickDmMessageEmbedTitle": "LOL BOZO BANNED COPE LOL",
+                    "kickDmMessageEmbedDescription": "copin' mechanism eh ?",
                     "kickDmMessageEmbedIncludeTimestamp": true,
-                    "kickDmMessageEmbedCOlor": "",
+                    "kickDmMessageEmbedColor": "0x1c7d44",
                     "kickDmMessage": ""
                 }
             }
