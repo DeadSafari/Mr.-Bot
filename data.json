@@ -2,7 +2,6 @@
     "900465934257520671": {
         "prefix": "?",
         "stripAfterPrefix": false,
-        "disabledCommandMessage": "",
         "moderation": {
             "moderatorRoles": [],
             "administratorRoles": [],
@@ -31,20 +30,66 @@
             "commands": {
                 "ban": {
                     "enabled": true,
+                    "errors": {
+                        "failedGlobalAllowedCheck": "This command is in globally disabled!",
+                        "failedPermissionCheck": ":x: You don't have the permission to use this command!",
+                        "failedEnableCheck": ":x: This command is disabled in this server!",
+                        "failedBanPermissionCheck": ":x: I don't have the `ban members` permission!",
+                        "authorEqualsMember": ":x: You cannot ban yourself!",
+                        "ownerEqualsMember": ":x: You cannot ban the server owner!",
+                        "protectedRole": ":x: This user has a protected role. You cannot ban this member!",
+                        "roleHierarchyError": ":x: You cannot ban this member due to role hierarchy!",
+                        "failedToSendToLogsChannel": ":x: I could not send a message to the logs channel. Please ensure that I have the permission to view & send messages there, and that it exists.",
+                        "failedToSendDmToMember": "null"
+                    },
                     "banDefaultReason": "No Reason",
                     "banMessageType": "embed",
-                    "banEmbedTitle": "",
-                    "banEmbedDescription": "***__Successfully banned [member.fullName] | [reason]__***",
-                    "banIncludeTimestamp": false,
-                    "banEmbedColor": "0x1c7d44",
+                    "banEmbed": {
+                        "color": "",
+                        "title": "",
+                        "url": "",
+                        "description": "",
+                        "timestamp": "",
+                        "author": {
+                            "name": "",
+                            "url": "",
+                            "icon_url": ""
+                        },
+                        "fields": [
+                            {}
+                        ],
+                        "footer": {
+                            "text": "",
+                            "icon_url": ""
+                        },
+                        "thumbnail_url": "",
+                        "image_url": ""
+                    },
                     "banMessage": "***__Successfully banned [member.fullName]__***",
                     "banLogs": true,
                     "banDm": true,
                     "banDmMessageType": "embed",
-                    "banDmMessageEmbedTitle": "LOL BOZO BANNED",
-                    "banDmMessageEmbedDescription": "coping hard brother",
-                    "banDmMessageEmbedIncludeTimestamp": true,
-                    "banDmMessageEmbedColor": "0x1c7d44",
+                    "banDmEmbed": {
+                        "color": "",
+                        "title": "",
+                        "url": "",
+                        "description": "",
+                        "timestamp": "",
+                        "author": {
+                            "name": "",
+                            "url": "",
+                            "icon_url": ""
+                        },
+                        "fields": [
+                            {}
+                        ],
+                        "footer": {
+                            "text": "",
+                            "icon_url": ""
+                        },
+                        "thumbnail_url": "",
+                        "image_url": ""
+                    },
                     "banDmMessage": "aisdhasiodhasiudhasiudhsai LOL COPE HARDER BOZO"
                 },
                 "kick": {

@@ -1,61 +1,16 @@
+#imports
 import datetime
 import json
 import os
-import time
 import discord
 from discord.ext import commands
-
 from typing import Union, Optional
-
-def formatString(string: str):
-    #to do
-    return string
-
-def logToDb(ctx: Union[discord.Interaction, commands.Context], member: discord.Member, type: str, reason: str):
-    with open("data.json", mode="r") as f:
-        data: dict = json.load(f)
-    author = ctx.author or ctx.user
-    guildData: dict = data[str(ctx.guild.id)]
-    if not str(member.id) in guildData['moderation']['modLogs']:
-        guildData['moderation']['modLogs'][str(member.id)] = []
-    guildData['moderation']['modLogs'][str(member.id)].append(
-        {
-            "member": member.id,
-            "moderator": author.id,
-            "type": type,
-            "time": time.time(),
-            "reason": reason
-        }
-    )
-    with open("data.json", mode="w") as f:
-        json.dump(data, f, indent=4)
-
-def checkForPerms(ctx: Union[discord.Interaction, commands.Context]):
-    with open("data.json", mode="r") as f:
-        data = json.load(f)
-    author = ctx.author if isinstance(ctx, commands.Context) else ctx.user
-    for role in author.roles:
-        if role.id in data[str(ctx.guild.id)]['moderation']['moderatorRoles']:
-            return True
-        elif role.id in data[str(ctx.guild.id)]['moderation']['administratorRoles']:
-            return True
-    if author.guild_permissions.ban_members or author.guild_permissions.administrator: 
-        return True
-
-def allowed(ctx: Union[discord.Interaction, commands.Context], commandName: str):
-    with open("data.json", mode='r') as f:
-        data = json.load(f)
-    return data[str(ctx.guild.id)]['moderation']['commands'][commandName]['enabled']
-
-def returnLogsChannel(bot: commands.Bot, guildId: int):
-    with open("data.json", mode="r") as f:
-        data: dict = json.load(f)
-    return bot.get_channel(data[str(guildId)]['moderation']['logsChannel'])
-
-def globalAllowed(ctx: Union[discord.Interaction, commands.Context]):
-    with open("globalStuff.json", mode="r") as f:
-        data: dict = json.load(f)
-    return data[ctx.command.name]
+from bot.functions.checkForPerms import checkForPerms
+from bot.functions.formatString import formatString, formatString
+from bot.functions.isEnabled import isEnabled
+from bot.functions.isGloballyEnabled import isGloballyEnabled
+from bot.functions.logToDb import logToDb
+from bot.functions.returnLogsChannel import returnLogsChannel
 
 class banCommand(commands.Cog):
     def __init__(self, bot):
@@ -71,9 +26,9 @@ class banCommand(commands.Cog):
         usage="<member> [delete message] [reason]",
         cooldownLimit=[5, "seconds"]
     )
-    @discord.app_commands.check(globalAllowed)
+    @discord.app_commands.check(isGloballyEnabled)
     @discord.app_commands.check(checkForPerms)
-    @commands.check(globalAllowed)
+    @commands.check(isGloballyEnabled)
     @commands.check(checkForPerms)
     @discord.app_commands.guilds(900465934257520671)
     async def _ban(self, ctx: commands.Context, member: Optional[discord.Member], delete_messages: Optional[str], *, reason: Optional[str]):
@@ -81,7 +36,7 @@ class banCommand(commands.Cog):
         if not reason: reason = ""
         author = ctx.author or ctx.user
         if author.bot: return
-        enabled = allowed(ctx, "ban")
+        enabled = isEnabled(ctx, "ban")
         with open("data.json", mode="r") as f:
             data: dict = json.load(f)
         if not enabled: return await ctx.send(data[str(ctx.guild.id)]['disabledCommandMessage'])
@@ -107,6 +62,8 @@ class banCommand(commands.Cog):
             return await ctx.send(":x: You can't ban yourself!")
         if member == ctx.guild.owner:
             return await ctx.send(":x: You can't ban the server owner!")
+        if not ctx.author.role > member.top_role:
+            return await ctx.send(":x: You cannot ban this member due to role hierarchy!")
         if not ctx.guild.me.top_role > member.top_role:
             return await ctx.send(":x: I can't ban this member, because I don't have a role higher than them.")
         if data[str(ctx.guild.id)]['moderation']['commands']['ban']['banMessageType'] == "embed":
@@ -146,6 +103,7 @@ class banCommand(commands.Cog):
                 try:
                     await member.send(dmMessage)
                 except: pass
+        #bans the member with the reason, and delete message days
         await member.ban(reason=reason, delete_message_days=delete_messagesInt)
         logToDb(
             ctx=ctx,
@@ -156,6 +114,8 @@ class banCommand(commands.Cog):
         LogsChannel = returnLogsChannel(self.bot, ctx.guild.id)
         if LogsChannel:
             await LogsChannel.send(embed=logsEmbed)
+
+
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(banCommand(bot))

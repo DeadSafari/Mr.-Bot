@@ -1,3 +1,4 @@
+#imports
 import asyncio
 import traceback
 import discord
@@ -8,10 +9,12 @@ from dotenv import load_dotenv
 import os
 import json
 
+#ignore
 class hybridCommand(commands.Command):
     def __init__(self):
         super().__init__()
 
+#sub class commands.Bot
 class Bot(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -21,9 +24,11 @@ class Bot(commands.Bot):
         self.TOKEN: str = os.getenv("TOKEN")
         self.trueReady: bool = False
 
+    #sync slash commands
     async def setup_hook(self) -> None:
         await self.tree.sync(guild=discord.Object(id=900465934257520671))
 
+    #function to be called when ready
     async def on_ready(self):
         self.log.info("Logged in.")
         self.log.info("Checking & fixing the database...")
@@ -37,24 +42,25 @@ class Bot(commands.Bot):
         self.log.info(f"Guilds: {len(self.guilds)}")
         self.log.info("===========================================")
 
+    #prints error to console
     async def on_error(self, error):
-        if isinstance(error, commands.errors.CommandInvokeError):
-            error = error.original
-        if not isinstance(error, commands.errors.CommandNotFound):
-            traceback.print_exc()
-        return
+        traceback.print_exc()
 
+
+#returns prefix for specific guild
 def getPrefix(bot: Bot, message: discord.Message):
     with open("data.json", mode="r") as f:
         data = json.load(f)
     return data[str(message.guild.id)]['prefix']
 
+#retrns the StripAfterPrefix argument for the specific guild
 def getStripAfterPrefix(bot: Bot, message: discord.Message):
     with open("data.json", mode="r") as f:
         data = json.load(f)
     return data[str(message.guild.id)]['stripAfterPrefix']
 
 async def main():
+    #load the .env file
     load_dotenv()
     intents = discord.Intents.all()
     intents.presences = False
@@ -67,7 +73,9 @@ async def main():
         strip_after_prefix=getStripAfterPrefix,
         help_command=None
     )
+    #setup logging
     setup_logging()
+    #load cogs
     for cog in os.listdir("./bot/cogs"):
         if cog.endswith(".py"):
             try:
@@ -76,11 +84,13 @@ async def main():
                 traceback.print_exc()
     await bot.start(os.getenv('TOKEN'))
 
+#add guilds to database that aren't present in the database
 def addGuildsToDatabase(guildIds: list, data: dict):
     for id in guildIds:
         data[int(id)] = {"prefix": "?", "stripAfterPrefix": False}
     return data
 
+#update database keys with new keys in updates.json
 def updateDatabase(bot: Bot):
     with open("data.json", mode="r") as f:
         data: dict = json.load(f)

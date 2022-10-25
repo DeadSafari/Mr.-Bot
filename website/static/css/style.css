@@ -99,27 +99,27 @@ html {
 
 nav,
 .navbar-menu {
-  background-color: white !important;
+  background-color: transparent !important;
   color:black;
 }
 
 .navbar-item.nav-dark,
 .navbar-link.nav-dark {
-  color: white !important;
+  color: black !important;
 }
 
 .navbar-item,
 .navbar-link {
-  color:black !important;
+  color:white !important;
 }
 
 nav.nav-w {
-  background: black !important;
+  background: transparent !important;
   box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.1) !important;
 }
 
 .nav-w {
-  background: black !important;
+  background: transparent !important;
   box-shadow: 100px 2px 10px white !important;
 }
 
