@@ -48,13 +48,6 @@ class Bot(commands.Bot):
     async def on_error(self, error: Exception) -> None:
         traceback.print_exc()
 
-    async def on_command_error(self, context: commands.Context, error: Exception) -> None:
-        if isinstance(
-            error,
-            commands.CommandNotFound
-        ):
-            return
-
 async def main():
     #load the .env file
     load_dotenv()

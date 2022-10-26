@@ -48,24 +48,23 @@
                         "color": "0x1c7d44",
                         "title": "Ban Command",
                         "url": "null",
-                        "description": "**Description:** Bans the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]ban <member> [time] [delete message days] [reason]\n**Examples:**\n[prefix]ban @DeadSafari 7 Breaking Rule 3.\n[prefix]ban 958390293760184392 5h Breaking rule 4.\nban DeadSafari",
+                        "description": "**Description:** Bans the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]ban <member> [time] [delete message days] [reason]\n**Examples:**\n[prefix]ban @DeadSafari 7 Breaking Rule 3.\n[prefix]ban 958390293760184392 5h Breaking rule 4.\n[prefix]ban DeadSafari",
                         "timestamp": true,
                         "author": {
-                            "name": "",
-                            "url": "",
-                            "icon_url": ""
+                            "name": "null",
+                            "url": "null",
+                            "icon_url": "null"
                         },
-                        "fields": [
-                            {}
-                        ],
+                        "fields": [],
                         "footer": {
-                            "text": "",
-                            "icon_url": ""
+                            "text": "null",
+                            "icon_url": "null"
                         },
-                        "thumbnail_url": "",
-                        "image_url": ""
+                        "thumbnail_url": "null",
+                        "image_url": "null"
                     },
-                    "banSenedEmbed": {
+                    "banSendType": "embed",
+                    "banSendEmbed": {
                         "color": "",
                         "title": "",
                         "url": "",
@@ -77,7 +76,11 @@
                             "icon_url": ""
                         },
                         "fields": [
-                            {}
+                            {
+                                "name": "sex",
+                                "value": "sex",
+                                "inline": true
+                            }
                         ],
                         "footer": {
                             "text": "",
