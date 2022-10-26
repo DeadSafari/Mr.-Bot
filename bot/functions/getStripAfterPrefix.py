@@ -1,4 +1,4 @@
-from bot.bot import Bot
+from discord.ext.commands import Bot
 import discord
 import json
 

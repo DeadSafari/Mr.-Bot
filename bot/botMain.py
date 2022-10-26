@@ -13,7 +13,7 @@ from bot.functions.getStripAfterPrefix import getStripAfterPrefix
 
 class Bot(commands.Bot):
     def __init__(
-        self: any,
+        self,
         **kwargs) -> None:
         super().__init__(
             **kwargs
@@ -24,14 +24,14 @@ class Bot(commands.Bot):
 
         self.TOKEN: str = os.getenv("TOKEN")
 
-    async def setup_hook(self: any) -> None:
+    async def setup_hook(self) -> None:
         await self.tree.sync(
-            discord.Object(
+            guild=discord.Object(
                 id=900465934257520671
             )
         )
 
-    async def on_ready(self: any):
+    async def on_ready(self):
         self.log.info("Logged in.")
         self.log.info("Checking & fixing the database...")
         updateDb(
@@ -48,7 +48,7 @@ class Bot(commands.Bot):
     async def on_error(self, error: Exception) -> None:
         traceback.print_exc()
 
-    async def on_command_error(self: any, context: commands.Context, error: Exception) -> None:
+    async def on_command_error(self, context: commands.Context, error: Exception) -> None:
         if isinstance(
             error,
             commands.CommandNotFound

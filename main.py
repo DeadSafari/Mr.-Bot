@@ -1,6 +1,6 @@
 #imports
 from website.index import run
-from bot.bot import main
+from bot.botMain import main
 import asyncio
 import threading
 
