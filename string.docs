@@ -1,0 +1,20 @@
+{
+    "attributes": [
+"[member.fullName]",
+"[member.id]",
+"[member.name]",
+"[member.nickName]",
+"[member.tag]",
+"[member.avatar]",
+"[member.nickAvatar]",
+"[member.banner]",
+"[member.nickBanner]",
+"[server.name]",
+"[server.id]",
+"[server.memberCount]",
+"[server.owner]",
+"[server.owner.id]",
+"[prefix]",
+"[reason]"
+]
+}

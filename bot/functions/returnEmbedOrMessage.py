@@ -2,6 +2,7 @@ import json
 import discord
 from discord.ext import commands
 from typing import Union
+from bot.functions.formatString import formatString
 
 def returnEmbedOrMessage(ctx: Union[discord.Interaction, commands.Context]):
     with open("data.json", mode="r") as f:
@@ -11,41 +12,34 @@ def returnEmbedOrMessage(ctx: Union[discord.Interaction, commands.Context]):
     if messageData[ctx.command.name+"MessageType"] == "embed":
         embedData = messageData[ctx.command.name+"Embed"]
         if embedData['url'] != "null":
-            embed  = discord.Embed(url=embedData['url'])
+            embed  = discord.Embed(embedData['url'])
         else:
             embed = discord.Embed()
         if embedData['title'] != "null":
-            print('title thing')
-            embed.title = embedData['title']
+            embed.title = formatString(embedData['title'], ctx=ctx)
         if embedData['description'] != "null":
-            print('description thing')
-            embed.description = embedData['description']
+            embed.description = formatString(embedData['description'], ctx=ctx)
         if embedData['color'] != "null":
-            print('color thing')
             embed.color = discord.Color.from_str(embedData['color'])
         if embedData['timestamp']:
-            print('timestamp thing')
             embed.timestamp = ctx.message.created_at
         for field in embedData['fields']:
-            print('field thing')
             embed.add_field(
-                name=field['name'],
-                value=field['value'],
+                name=formatString(field['name'], ctx=ctx),
+                value=formatString(field['value'], ctx=ctx),
                 inline=field['inline']
             )
         if embedData['thumbnail_url'] != "null":
-            print('thumbnail url thing')
             embed.set_thumbnail(url=embedData['thumbnail_url'])
         if embedData['image_url'] != "null":
-            print('image url thing')
             embed.set_image(url=embedData['image_url'])
         embed.set_author(
-            name=None if embedData['author']['name'] == "null" else embedData['author']['name'],
+            name="" if embedData['author']['name'] == "null" else formatString(embedData['author']['name'], ctx=ctx),
             icon_url=None if embedData['author']['icon_url'] == "null" else embedData['author']['icon_url'],
             url = None if embedData['author']['url'] == "null" else embedData['author']['url']
         )
         embed.set_footer(
-            text="" if embedData['footer']['text'] == "null" else embedData['footer']['text'],
+            text=None if embedData['footer']['text'] == "null" else formatString(embedData['footer']['text'], ctx=ctx),
             icon_url=None if embedData['footer']['icon_url'] == "null" else embedData['footer']['icon_url'],
         )
         return embed

@@ -57,9 +57,7 @@ class banCommand(commands.Cog):
         
         guildData = data[str(ctx.guild.id)]
         if member is None:
-            print('no member')
             response = returnEmbedOrMessage(ctx)
-            print('instance of an embed')
             await ctx.send(embed=response)
             return
             
