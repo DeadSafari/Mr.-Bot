@@ -13,6 +13,7 @@ from bot.functions.isGloballyEnabled import isGloballyEnabled
 from bot.functions.logToDb import logToDb
 from bot.functions.returnLogsChannel import returnLogsChannel
 from bot.functions.returnEmbedOrMessage import returnEmbedOrMessage
+from bot.functions.isProtected import isProtected
 
 class banCommand(commands.Cog):
     def __init__(
@@ -56,10 +57,54 @@ class banCommand(commands.Cog):
             data: dict = json.load(f)
         
         guildData = data[str(ctx.guild.id)]
+        sendType = guildData['moderation']['commands'][ctx.command.name]
+        commandData = guildData['moderation']['commands'][ctx.command.name]
         if member is None:
             response = returnEmbedOrMessage(ctx)
             await ctx.send(embed=response)
             return
+        if not ctx.guild.me.guild_permissions.ban_members:
+            await ctx.send(formatString(
+                commandData['errors']['failedBanPermissionCheck'],
+                ctx=ctx,
+                reason=reason,
+                member=member
+            ))
+            return
+        if ctx.author == member:
+            await ctx.send(formatString(
+                commandData['errors']['authorEqualsMember'],
+                ctx=ctx,
+                reason=reason,
+                member=member
+            ))
+            return
+        if member == ctx.guild.owner:
+            await ctx.send(formatString(
+                commandData['errors']['ownerEqualsMember'],
+                ctx=ctx,
+                reason=reason,
+                member=member
+            ))
+            return
+        if isProtected(ctx=ctx, member=member):
+            await ctx.send(formatString(
+                commandData['errors']['protectedRole'],
+                ctx=ctx,
+                member=member,
+                reason=reason
+            ))
+            return
+        if not ctx.author.top_role > member.top_role:
+            await ctx.send(formatString(
+                commandData['errors']['roleHierarchyError'],
+                ctx=ctx,
+                member=member,
+                reason=reason
+            ))
+            return
+        
+        
             
         
 async def setup(bot: Bot) -> None:

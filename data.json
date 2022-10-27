@@ -31,7 +31,7 @@
                 "ban": {
                     "enabled": true,
                     "errors": {
-                        "failedGlobalAllowedCheck": "This command is in globally disabled!",
+                        "failedGlobalAllowedCheck": "This command is globally disabled!",
                         "failedPermissionCheck": ":x: You don't have the permission to use this command!",
                         "failedEnableCheck": ":x: This command is disabled in this server!",
                         "failedBanPermissionCheck": ":x: I don't have the `ban members` permission!",
@@ -64,24 +64,25 @@
                         "image_url": "null"
                     },
                     "banSendType": "embed",
+                    "banSendEnabled": true,
                     "banSendEmbed": {
                         "color": "0x1c7d44",
-                        "title": "",
-                        "url": "",
+                        "title": "null",
+                        "url": "null",
                         "description": "***__Successfully banned [member.fullName] | [reason]",
-                        "timestamp": "",
+                        "timestamp": false,
                         "author": {
-                            "name": "",
-                            "url": "",
-                            "icon_url": ""
+                            "name": "null",
+                            "url": "null",
+                            "icon_url": "null"
                         },
                         "fields": [],
                         "footer": {
-                            "text": "",
-                            "icon_url": ""
+                            "text": "null",
+                            "icon_url": "null"
                         },
-                        "thumbnail_url": "",
-                        "image_url": ""
+                        "thumbnail_url": "null",
+                        "image_url": "null"
                     },
                     "banMessage": "***__Successfully banned [member.fullName]__***",
                     "banLogs": true,
@@ -108,7 +109,7 @@
                         "thumbnail_url": "",
                         "image_url": ""
                     },
-                    "banDmMessage": "aisdhasiodhasiudhasiudhsai LOL COPE HARDER BOZO"
+                    "banDmMessage": "You have been banned from [server.name]! Reason: [reason]"
                 },
                 "kick": {
                     "enabled": true,
