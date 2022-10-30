@@ -7,13 +7,14 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 from typing import List, Tuple, Union, Optional
 from bot.functions.checkForPerms import checkForPerms
-from bot.functions.formatString import formatString, formatString
+from bot.functions.formatString import formatString 
 from bot.functions.isEnabled import isEnabled
 from bot.functions.isGloballyEnabled import isGloballyEnabled
 from bot.functions.logToDb import logToDb
 from bot.functions.returnLogsChannel import returnLogsChannel
 from bot.functions.returnEmbedOrMessage import returnEmbedOrMessage
 from bot.functions.isProtected import isProtected
+from bot.functions.checksForCommands import checksForCommands
 
 class banFlags(commands.FlagConverter, case_insensitive=True):
     # member: Union[discord.Member, discord.User] = commands.flag(
@@ -90,49 +91,18 @@ class banCommand(commands.Cog):
                 response = returnEmbedOrMessage(ctx)
                 await ctx.send(embed=response)
                 return
-            if not ctx.guild.me.guild_permissions.ban_members:
-                await ctx.send(formatString(
-                    commandData['errors']['failedBanPermissionCheck'],
-                    ctx=ctx,
-                    reason=reason,
-                    member=member
-                ))
-                return
-            if ctx.author == member:
-                await ctx.send(formatString(
-                    commandData['errors']['authorEqualsMember'],
-                    ctx=ctx,
-                    reason=reason,
-                    member=member
-                ))
-                return
-            if member == ctx.guild.owner:
-                await ctx.send(formatString(
-                    commandData['errors']['ownerEqualsMember'],
-                    ctx=ctx,
-                    reason=reason,
-                    member=member
-                ))
-                return
-            if isProtected(ctx=ctx, member=member):
-                await ctx.send(formatString(
-                    commandData['errors']['protectedRole'],
-                    ctx=ctx,
-                    member=member,
-                    reason=reason
-                ))
-                return
-            if not ctx.author.top_role > member.top_role:
-                await ctx.send(formatString(
-                    commandData['errors']['roleHierarchyError'],
-                    ctx=ctx,
-                    member=member,
-                    reason=reason
-                ))
-                return
+
+        errorMessage = checksForCommands(
+            ctx=ctx,
+            member=member,
+            author=ctx.user or ctx.author,
+            reason=reason,
+            commandData=commandData
+        )
+        if errorMessage:
+            return await ctx.send(errorMessage)
 
         
-            
         
 async def setup(bot: Bot) -> None:
     await bot.add_cog(
