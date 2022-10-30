@@ -8,6 +8,6 @@ def isProtected(ctx: Union[discord.Interaction, commands.Context], member: disco
         data: dict = json.load(f)
     guildData = data[str(ctx.guild.id)]
     for role in member.roles:
-        if role.id in guildData['protectedRoles']:
+        if role.id in guildData['moderation']['protectedRoles']:
             return True
     return False

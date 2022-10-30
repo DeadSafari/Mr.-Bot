@@ -13,8 +13,8 @@ from bot.functions.logToDb import logToDb
 from bot.functions.returnLogsChannel import returnLogsChannel
 
 class kickCommand(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
+    def __init__(self, bot: commands.Bot):
+        self.bot: commands.Bot = bot
     
     @commands.Cog.listener()
     async def on_ready(self):
@@ -110,6 +110,12 @@ class kickCommand(commands.Cog):
         if LogsChannel:
             await LogsChannel.send(embed=logsEmbed)
 
+    @commands.command()
+    async def reload(self, ctx, name: str):
+        try:
+            await self.bot.unload_extension(name)
+        except: await ctx.send("not loaded, attempting to load it...")
+        await self.bot.load_extension(name)
 
 async def setup(bot):
     await bot.add_cog(kickCommand(bot=bot))
