@@ -1,7 +1,5 @@
 {
     "900465934257520671": {
-        "prefix": "?",
-        "stripAfterPrefix": false,
         "moderation": {
             "moderatorRoles": [],
             "administratorRoles": [],
@@ -48,7 +46,7 @@
                         "color": "0x1c7d44",
                         "title": "Ban Command",
                         "url": "null",
-                        "description": "**Description:** Bans the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]ban <member> [time] [delete message days] [reason]\n**Examples:**\n[prefix]ban @DeadSafari 7 Breaking Rule 3.\n[prefix]ban 958390293760184392 5h Breaking rule 4.\n[prefix]ban DeadSafari\n[prefix]ban \"Dead Safari\" 5 12h You're mad cuz bad bro.",
+                        "description": "**Description:** Bans the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]ban <member> [time] [delete message days] [reason]",
                         "timestamp": true,
                         "author": {
                             "name": "null",

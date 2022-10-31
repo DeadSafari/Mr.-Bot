@@ -12,8 +12,8 @@ def checksForCommands(ctx: Union[commands.Context, discord.Interaction], member:
             reason=reason,
             member=member
         ))
-    if ctx.author == member:
-        return ctx.send(formatString(
+    if author == member:
+        return ctx.followup.send(content=formatString(
             commandData['errors']['authorEqualsMember'],
             ctx=ctx,
             reason=reason,
@@ -21,21 +21,21 @@ def checksForCommands(ctx: Union[commands.Context, discord.Interaction], member:
         ))
         
     if member == ctx.guild.owner:
-        return ctx.send(formatString(
+        return ctx.followup.send(content=formatString(
             commandData['errors']['ownerEqualsMember'],
             ctx=ctx,
             reason=reason,
             member=member
         ))
     if isProtected(ctx=ctx, member=member):
-        return ctx.send(formatString(
+        return ctx.followup.send(content=formatString(
             commandData['errors']['protectedRole'],
             ctx=ctx,
             member=member,
             reason=reason
         ))
-    if not ctx.author.top_role > member.top_role:
-        return ctx.send(formatString(
+    if not author.top_role > member.top_role:
+        return ctx.followup.send(content=formatString(
             commandData['errors']['roleHierarchyError'],
             ctx=ctx,
             member=member,

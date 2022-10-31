@@ -1,0 +1,3 @@
+discord
+quart
+python-dotenv

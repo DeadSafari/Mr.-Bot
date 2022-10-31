@@ -2,6 +2,7 @@
 import datetime
 import json
 import os
+import traceback
 import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
@@ -16,30 +17,6 @@ from bot.functions.returnEmbedOrMessage import returnEmbedOrMessage
 from bot.functions.isProtected import isProtected
 from bot.functions.checksForCommands import checksForCommands
 
-class banFlags(commands.FlagConverter, case_insensitive=True):
-    # member: Union[discord.Member, discord.User] = commands.flag(
-    #     name="member",
-    #     aliases=['users', 'user', 'members'],
-    #     description="The member to ban.",
-    #     default=None
-    # )
-    delete_message_days: int = commands.flag(
-        name="delete_message_days",
-        aliases=['deleteMessageDays', 'delmsgdays', 'delmsg', 'del'],
-        description="The number of days worth of messages to delete from the user in the guild. The minimum & default is 0 and the maximum is 7.",
-        default=0
-    )
-    reason: str = commands.flag(
-        name="reason",
-        description="The reason for banning.",
-        default=""
-    )
-    time: str = commands.flag(
-        name='time',
-        description="The amount of time to ban for.",
-        default=""
-    )
-
 class banCommand(commands.Cog):
     def __init__(
         self,
@@ -51,59 +28,71 @@ class banCommand(commands.Cog):
     async def on_ready(self):
         self.bot.log.info("commands.Ban is now ready!")
     
-    @commands.hybrid_command(
+    @discord.app_commands.command(
         name="ban",
-        with_app_command=True,
-        description="Bans the given member.",
-        args=[['member', 'The member to ban.', 'required'], ['time', 'The time to ban the member for.', 'optional'], ['delete message days', 'The amount of messages to delete for the member. Defaults to 1.', 'optional'], ['reason', 'The reason for banning this member', 'optional']]        
+        description="Bans the given member(s).",
+        # args=[['member', 'The member to ban.', 'required'], ['time', 'The time to ban the member for.', 'optional'], ['delete message days', 'The amount of messages to delete for the member. Defaults to 1.', 'optional'], ['reason', 'The reason for banning this member', 'optional']]
     )
+    @discord.app_commands.describe(member="The member to ban.")
+    @discord.app_commands.describe(time="The time to ban the member for. (optional)")
+    @discord.app_commands.describe(delete_message_days="The amount of messages to delete for the member. Default 1 (optional)")
+    @discord.app_commands.describe(reason="The reason for banning this member. (optional)")
     @discord.app_commands.guilds(900465934257520671)
-    @commands.check(isGloballyEnabled)
     @discord.app_commands.check(isGloballyEnabled)
-    @commands.check(isEnabled)
     @discord.app_commands.check(isEnabled)
-    @commands.check(checkForPerms)
     @discord.app_commands.check(checkForPerms)
-    # @discord.app_commands.rename(deleteMessageDays="delete_message_days")
-    @discord.app_commands.describe(members="The member(s) to ban.")
-    # @discord.app_commands.describe(time="The time to ban the member for. (optional)")
-    # @discord.app_commands.describe(deleteMessageDays="The amount of messages to delete for the member. Default 1 (optional)")
-    # @discord.app_commands.describe(reason="The reason for banning this member. (optional)")
     async def _ban(
         self,
-        ctx: Union[commands.Context, discord.Interaction],
-        members: commands.Greedy[Union[discord.Member, discord.User]],
-        *,
-        args: banFlags
+        interaction: discord.Interaction,
+        member: Union[discord.Member, discord.User] = None,
+        time: Optional[str] = None,
+        delete_message_days: Optional[int] = 0,
+        reason: Optional[str] = None
     ):
-        print(args)
+        await interaction.response.defer()
         with open("data.json") as f:
             data: dict = json.load(f)
-        # member = args.member
-        reason = args.reason
-        time = args.time
-        delete_message_days = args.delete_message_days
-        guildData = data[str(ctx.guild.id)]
-        sendType = guildData['moderation']['commands'][ctx.command.name]
-        commandData = guildData['moderation']['commands'][ctx.command.name]
-        for member in members:
-            if member is None:
-                response = returnEmbedOrMessage(ctx)
-                await ctx.send(embed=response)
-                return
+        guildData = data[str(interaction.guild.id)]
+        sendType = guildData['moderation']['commands'][interaction.command.name]
+        commandData = guildData['moderation']['commands'][interaction.command.name]
+        if member is None:
+            response = returnEmbedOrMessage(interaction)
+            await interaction.followup.send(embed=response)
+            return
 
         errorMessage = checksForCommands(
-            ctx=ctx,
+            ctx=interaction,
             member=member,
-            author=ctx.user or ctx.author,
+            author=interaction.user,
             reason=reason,
             commandData=commandData
         )
         if errorMessage:
-            return await ctx.send(errorMessage)
+            return await interaction.followup.send(content=errorMessage)
+        self.bot.log.info("converting time")
+        try:
+            seconds = time[:-1] #Gets the numbers from the time argument, start to -1
+            duration = time[-1] #Gets the timed maniulation, s, m, h, d
+            if duration == "s":
+                seconds = seconds * 1
+            elif duration == "m":
+                seconds = seconds * 60
+            elif duration == "h":
+                seconds = seconds * 60 * 60
+            elif duration == "d":
+                seconds = seconds * 86400
+            else:
+                await interaction.followup.send(content="Invalid duration input")
+                return
+            self.bot.log.info("converted time")
+        except Exception as e:
+            self.bot.log.info("exception")
+            traceback.print_exc()
+            await interaction.followup.send(content="Invalid time input")
+            return
 
-        
-        
+        await interaction.followup.send(content="this is a message")
+
 async def setup(bot: Bot) -> None:
     await bot.add_cog(
         banCommand(

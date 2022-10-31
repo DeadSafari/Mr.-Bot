@@ -8,8 +8,6 @@ from dotenv import load_dotenv
 import os
 import json
 from bot.functions.updateDb import updateDb
-from bot.functions.getPrefix import getPrefix
-from bot.functions.getStripAfterPrefix import getStripAfterPrefix
 
 class Bot(commands.Bot):
     def __init__(
@@ -54,12 +52,12 @@ async def main():
     intents = discord.Intents.all()
     intents.presences = False
     bot: Bot = Bot(
-        command_prefix=getPrefix,
+        command_prefix="mr.",
         intents=intents,
         case_insensitive=True,
         status=discord.Status.online,
         activity=discord.Activity(type=discord.ActivityType.watching, name="https://mr-bot.ml/"),
-        strip_after_prefix=getStripAfterPrefix,
+        strip_after_prefix=True,
         help_command=None
     )
     setup_logging()

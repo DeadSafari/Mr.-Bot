@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands
 from typing import Union
 from bot.functions.formatString import formatString
+import datetime
 
 def returnEmbedOrMessage(ctx: Union[discord.Interaction, commands.Context]):
     with open("data.json", mode="r") as f:
@@ -22,7 +23,7 @@ def returnEmbedOrMessage(ctx: Union[discord.Interaction, commands.Context]):
         if embedData['color'] != "null":
             embed.color = discord.Color.from_str(embedData['color'])
         if embedData['timestamp']:
-            embed.timestamp = ctx.message.created_at
+            embed.timestamp = datetime.datetime.now()
         for field in embedData['fields']:
             embed.add_field(
                 name=formatString(field['name'], ctx=ctx),
