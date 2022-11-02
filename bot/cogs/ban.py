@@ -15,7 +15,6 @@ from bot.functions.isGloballyEnabled import isGloballyEnabled
 from bot.functions.logToDb import logToDb
 from bot.functions.returnLogsChannel import returnLogsChannel
 from bot.functions.returnEmbedOrMessage import returnEmbedOrMessage
-from bot.functions.isProtected import isProtected
 from bot.functions.checksForCommands import checksForCommands
 
 class banCommand(commands.Cog):
@@ -192,11 +191,16 @@ class banCommand(commands.Cog):
                 title="Member Banned",
                 description=f"I can't be arsed to make this a custom thing yet. So here's the default embed. Sorry!"
             )
-            try:
-                channel = await interaction.guild.fetch_channel(guildData['moderation']["logsChannel"])
-                await channel.send(embed=embed)
-            except Exception as e:
-                await interaction.followup.send(content="Hey, I was unable to find the logs channel. Please make sure you have set it up correctly. If you have, please contact the bot owner.")
+            channel = returnLogsChannel(self.bot, interaction.guild.id)
+            if channel:
+                try:
+                    await channel.send(embed=embed)
+                except Exception as e:
+                    await interaction.followup.send(content="Hey this is rare. For some reason, I was unable to send the logs to the logs channel. You might wanna try again. This error has already been logged, and we're working on fixing it! Sorry for the inconvenience!")
+
+                    """
+                    Add Error logging system here later
+                    """
 
         if seconds == 0: 
             return
@@ -213,6 +217,14 @@ class banCommand(commands.Cog):
         )
         with open("tasks.json", mode="w") as f:
             json.dump(data, f, indent=4)
+
+        logToDb(
+            interaction,
+            member=member,
+            type="ban",
+            reason=reason,
+            argTime=time
+        )
 
 
 async def setup(bot: Bot) -> None:
