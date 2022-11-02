@@ -1,4 +1,5 @@
 #imports
+import asyncio
 import traceback
 import discord
 from discord.ext import commands
@@ -19,6 +20,7 @@ class Bot(commands.Bot):
 
         #setup an instance of the logging.getLogger
         self.log: logging.getLogger = logging.getLogger("Mr. Bot")
+        
 
         self.TOKEN: str = os.getenv("TOKEN")
 
@@ -42,6 +44,7 @@ class Bot(commands.Bot):
         self.log.info(f"Users: {len(self.users)}")
         self.log.info(f"Guilds: {len(self.guilds)}")
         self.log.info("===========================================")
+        self.loop = asyncio.get_running_loop()
 
     async def on_error(self, error: Exception) -> None:
         traceback.print_exc()

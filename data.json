@@ -88,7 +88,7 @@
                     "banDm": true,
                     "banDmMessageType": "embed",
                     "banDmEmbed": {
-                        "color": "",
+                        "color": "0x1c7d44",
                         "title": "null",
                         "url": "null",
                         "description": "null",
@@ -98,9 +98,7 @@
                             "url": "null",
                             "icon_url": "null"
                         },
-                        "fields": [
-                            {}
-                        ],
+                        "fields": [],
                         "footer": {
                             "text": "null",
                             "icon_url": "null"

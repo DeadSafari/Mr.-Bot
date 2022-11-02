@@ -1,4 +1,5 @@
 #imports
+import asyncio
 import datetime
 import json
 import os
@@ -27,6 +28,17 @@ class banCommand(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         self.bot.log.info("commands.Ban is now ready!")
+        with open('tasks.json', 'r') as f:
+            tasks: dict = json.load(f)
+        for task in tasks['bans']:
+            member = self.bot.get_user(task['member'])
+            if member is None: 
+                member = await self.bot.fetch_user(task['member'])
+                if member is None: continue
+            guild = self.bot.get_guild(task['guild'])
+            if guild is None: continue
+            self.bot.loop.call_later(task['timestamp'], asyncio.create_task(guild.unban(member)))
+
     
     @discord.app_commands.command(
         name="ban",
@@ -127,7 +139,7 @@ class banCommand(commands.Cog):
 
         if commandData[interaction.command.name+'Dm']:
             if commandData[interaction.command.name+'DmMessageType'] == "embed":
-                dmResponse = returnEmbedOrMessage(interaction, reason=reason, member=member, embedData=commandData[interaction.command.name+'DmMessageEmbed'])
+                dmResponse = returnEmbedOrMessage(interaction, reason=reason, member=member, embedData=commandData[interaction.command.name+'DmEmbed'])
             else:
                 dmResponse = formatString(
                     commandData[interaction.command.name+'DmEmbed'],
@@ -176,7 +188,7 @@ class banCommand(commands.Cog):
 
         if commandData[interaction.command.name+"Logs"]:
             embed = discord.Embed(
-                color=os.getenv('DEFAULTEMBEDCOLOR'),
+                color=discord.Color.from_str(os.getenv('DEFAULTEMBEDCOLOR')),
                 title="Member Banned",
                 description=f"I can't be arsed to make this a custom thing yet. So here's the default embed. Sorry!"
             )
@@ -186,7 +198,22 @@ class banCommand(commands.Cog):
             except Exception as e:
                 await interaction.followup.send(content="Hey, I was unable to find the logs channel. Please make sure you have set it up correctly. If you have, please contact the bot owner.")
 
+        if seconds == 0: 
+            return
+
+        self.bot.loop.call_later(seconds, asyncio.create_task(member.unban()))
         
+        with open("tasks.json", mode="r") as f:
+            data: dict = json.load(f)
+        
+        timestamp_unban = datetime.datetime.timestamp(datetime.datetime.utcnow() + datetime.timedelta(seconds=seconds))
+
+        data['bans'].append(
+            {"type": "ban", "member": member.id, "guild": interaction.guild.id, "timestamp": timestamp_unban}
+        )
+        with open("tasks.json", mode="w") as f:
+            json.dump(data, f, indent=4)
+
 
 async def setup(bot: Bot) -> None:
     await bot.add_cog(
