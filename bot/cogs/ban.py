@@ -53,12 +53,17 @@ class banCommand(commands.Cog):
         with open("data.json") as f:
             data: dict = json.load(f)
         guildData = data[str(interaction.guild.id)]
-        sendType = guildData['moderation']['commands'][interaction.command.name]
         commandData = guildData['moderation']['commands'][interaction.command.name]
         if member is None:
-            response = returnEmbedOrMessage(interaction)
-            await interaction.followup.send(embed=response)
-            return
+            if commandData[interaction.command.name+'MessageType'] == "embed":
+                response = returnEmbedOrMessage(
+                    ctx=interaction,
+                    reason=reason,
+                    member=member,
+                    embedData=commandData[interaction.command.name+'Embed']
+                )
+                await interaction.followup.send(embed=response)
+                return
 
         errorMessage = checksForCommands(
             ctx=interaction,
@@ -70,28 +75,118 @@ class banCommand(commands.Cog):
         if errorMessage:
             return await interaction.followup.send(content=errorMessage)
         self.bot.log.info("converting time")
-        try:
-            seconds = time[:-1] #Gets the numbers from the time argument, start to -1
-            duration = time[-1] #Gets the timed maniulation, s, m, h, d
-            if duration == "s":
-                seconds = seconds * 1
-            elif duration == "m":
-                seconds = seconds * 60
-            elif duration == "h":
-                seconds = seconds * 60 * 60
-            elif duration == "d":
-                seconds = seconds * 86400
+        if time:
+            try:
+                seconds = time[:-1] #Gets the numbers from the time argument, start to -1
+                duration = time[-1] #Gets the timed maniulation, s, m, h, d
+                if duration == "s":
+                    seconds = seconds * 1
+                elif duration == "m":
+                    seconds = seconds * 60
+                elif duration == "h":
+                    seconds = seconds * 60 * 60
+                elif duration == "d":
+                    seconds = seconds * 86400
+                else:
+                    await interaction.followup.send(
+                        content=formatString(
+                            commandData['errors']['failedTimeConvert'],
+                            ctx=interaction,
+                            member=member,
+                            reason=reason
+                    ))
+                    return
+                self.bot.log.info("converted time")
+            except Exception as e:
+                    self.bot.log.info("exception")
+                    traceback.print_exc()
+                    await interaction.followup.send(
+                        content=formatString(
+                            commandData['errors']['failedTimeConvert'],
+                            ctx=interaction,
+                            member=member,
+                            reason=reason
+                    ))
+                    return
+        else:
+           seconds = 0
+
+        if not reason:
+            reason = commandData[interaction.command.name+'DefaultReason']
+
+        if commandData[interaction.command.name+"SendType"] == "embed":
+            response = returnEmbedOrMessage(interaction, reason=reason, member=member, embedData=commandData[interaction.command.name+'SendEmbed'])
+    
+        else:
+            response = formatString(
+                commandData[interaction.command.name+'Message'],
+                ctx=interaction,
+                member=member,
+                reason=reason
+            )
+
+        if commandData[interaction.command.name+'Dm']:
+            if commandData[interaction.command.name+'DmMessageType'] == "embed":
+                dmResponse = returnEmbedOrMessage(interaction, reason=reason, member=member, embedData=commandData[interaction.command.name+'DmMessageEmbed'])
             else:
-                await interaction.followup.send(content="Invalid duration input")
-                return
-            self.bot.log.info("converted time")
+                dmResponse = formatString(
+                    commandData[interaction.command.name+'DmEmbed'],
+                    ctx=interaction,
+                    member=member,
+                    reason=reason
+                )
+            try:
+                if isinstance(dmResponse, discord.Embed):
+                    await member.send(embed=dmResponse)
+                else:
+                    await member.send(content=dmResponse)
+            except Exception as e:
+                error = commandData['errors']['failedToSendDmToMember']
+                if error != "null":
+                    await interaction.followup.send(content=
+                        formatString(
+                            error,
+                            ctx=interaction,
+                            member=member,
+                            reason=reason
+                        )
+                    )
+
+        try:
+            await interaction.guild.ban(
+                member,
+                reason=formatString(reason, ctx=interaction, member=member, reason=reason),
+                delete_message_days=delete_message_days
+            )
         except Exception as e:
-            self.bot.log.info("exception")
-            traceback.print_exc()
-            await interaction.followup.send(content="Invalid time input")
+            await interaction.followup.send(content="Hey this is rare. For some reason, I was unable to ban this member. You might wanna try again. This error has already been logged, and we're working on fixing it! Sorry for the inconvenience!")
+
+            """
+            Add Error logging system here later
+            """
+
             return
 
-        await interaction.followup.send(content="this is a message")
+
+
+        if isinstance(response, discord.Embed):
+            await interaction.followup.send(embed=response)
+        else:
+            await interaction.followup.send(content=response)
+
+        if commandData[interaction.command.name+"Logs"]:
+            embed = discord.Embed(
+                color=os.getenv('DEFAULTEMBEDCOLOR'),
+                title="Member Banned",
+                description=f"I can't be arsed to make this a custom thing yet. So here's the default embed. Sorry!"
+            )
+            try:
+                channel = await interaction.guild.fetch_channel(guildData['moderation']["logsChannel"])
+                await channel.send(embed=embed)
+            except Exception as e:
+                await interaction.followup.send(content="Hey, I was unable to find the logs channel. Please make sure you have set it up correctly. If you have, please contact the bot owner.")
+
+        
 
 async def setup(bot: Bot) -> None:
     await bot.add_cog(

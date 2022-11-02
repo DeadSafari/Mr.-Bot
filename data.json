@@ -38,7 +38,8 @@
                         "protectedRole": ":x: This user has a protected role. You cannot ban this member!",
                         "roleHierarchyError": ":x: You cannot ban this member due to role hierarchy!",
                         "failedToSendToLogsChannel": ":x: I could not send a message to the logs channel. Please ensure that I have the permission to view & send messages there, and that it exists.",
-                        "failedToSendDmToMember": "null"
+                        "failedToSendDmToMember": "null",
+                        "failedTimeConvert": ":x: The time format you provided is invalid! Please use the format `1d 2h 3m 4s`."
                     },
                     "banDefaultReason": "No Reason",
                     "banMessageType": "embed",
@@ -67,7 +68,7 @@
                         "color": "0x1c7d44",
                         "title": "null",
                         "url": "null",
-                        "description": "***__Successfully banned [member.fullName] | [reason]",
+                        "description": "***__Successfully banned [member.fullName] | [reason]__***",
                         "timestamp": false,
                         "author": {
                             "name": "null",
@@ -88,24 +89,24 @@
                     "banDmMessageType": "embed",
                     "banDmEmbed": {
                         "color": "",
-                        "title": "",
-                        "url": "",
-                        "description": "",
-                        "timestamp": "",
+                        "title": "null",
+                        "url": "null",
+                        "description": "null",
+                        "timestamp": "null",
                         "author": {
-                            "name": "",
-                            "url": "",
-                            "icon_url": ""
+                            "name": "null",
+                            "url": "null",
+                            "icon_url": "null"
                         },
                         "fields": [
                             {}
                         ],
                         "footer": {
-                            "text": "",
-                            "icon_url": ""
+                            "text": "null",
+                            "icon_url": "null"
                         },
-                        "thumbnail_url": "",
-                        "image_url": ""
+                        "thumbnail_url": "null",
+                        "image_url": "null"
                     },
                     "banDmMessage": "You have been banned from [server.name]! Reason: [reason]"
                 },

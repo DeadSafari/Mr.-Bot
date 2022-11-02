@@ -4,7 +4,7 @@ from discord.ext import commands
 from typing import Union
 import time
 
-def logToDb(ctx: Union[discord.Interaction, commands.Context], member: discord.Member, type: str, reason: str):
+def logToDb(ctx: Union[discord.Interaction, commands.Context], member: discord.Member, type: str, reason: str, argTime: str = "0"):
     with open("data.json", mode="r") as f:
         data: dict = json.load(f)
     author = ctx.author or ctx.user
@@ -16,7 +16,8 @@ def logToDb(ctx: Union[discord.Interaction, commands.Context], member: discord.M
             "member": member.id,
             "moderator": author.id,
             "type": type,
-            "time": time.time(),
+            "timestamp": time.time(),
+            "time": argTime,
             "reason": reason
         }
     )
