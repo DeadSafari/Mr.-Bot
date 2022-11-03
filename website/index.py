@@ -19,12 +19,36 @@ discord = DiscordOAuth2Session(app)
 
 @app.route("/")
 async def index():
-    return await render_template("./index.html", botName="Mr. Bot", botOwner="dead..#7420", botLoginUrl=url_for("login"), botInviteUrl=url_for("invite"))
+    return await render_template(
+        "index.html",
+        botName="Mr. Bot",
+        urlForCommands=url_for("commands"),
+        inviteUrl=url_for("invite"),
+        supportServer=url_for('server'),
+        serverCount=5000,
+        userCount="10,000",
+        commandCount="500,000"
+    )
+
+@app.route("/commands")
+async def commands():
+    return await render_template("/pages/commands.html",
+    botName="Mr. Bot",
+    homePage=url_for("index"),
+    inviteUrl=url_for("invite"),
+    supportServer=url_for('server'),
+    commansPage=url_for("commands"),
+    )
+
 
 #create the /invite endpoint
 @app.route("/invite")
 async def invite():
     return redirect("https://discord.com/oauth2/authorize?client_id=1033024808146964571&scope=bot%20applications.commands&permissions=1513962695871")
+
+@app.route("/server")
+async def server():
+    return redirect('https://google.com')
 
 #create the login endpoint
 @app.route("/login")
