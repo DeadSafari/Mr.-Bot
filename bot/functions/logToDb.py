@@ -7,7 +7,7 @@ import time
 def logToDb(ctx: Union[discord.Interaction, commands.Context], member: discord.Member, type: str, reason: str, argTime: str = "0"):
     with open("data.json", mode="r") as f:
         data: dict = json.load(f)
-    author = ctx.author or ctx.user
+    author = ctx.user
     guildData: dict = data[str(ctx.guild.id)]
     if not str(member.id) in guildData['moderation']['modLogs']:
         guildData['moderation']['modLogs'][str(member.id)] = []
