@@ -1,370 +1,240 @@
-<!--
-  | Website designed by JstnLT (https://jstnlt.my.id)
-  | This project is open source: https://github.com/JastinXyz/discord-bot-landing-page-web
--->
-
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{botName}} - An all-in-one Discord Bot</title>
-    <link rel="stylesheet" href="./static/css/bulma.min.css" />
-    <link rel="stylesheet" href="./static/css/style.css" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/tippy.js@6/animations/scale.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+<html lang="en">
 
-    <script src="./static/js/jquery-3.6.0.js"></script>
-  </head>
-  <body>
-    <!-- Back To Top Start -->
-    <a id="backtotop" data-tippy-content="Back To Top.">
-      <i class="fa-solid fa-angle-up has-text-white fa-2xl mt-5"></i>
-    </a>
-    <!-- Back To Top End -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./static/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="shortcut icon" href="./static/img/" type="image/x-icon">
+    <title>{{botName}}</title>
+</head>
 
-    <!-- Navbar Start -->
-    <nav
-      class="navbar is-fixed-top"
-      role="navigation"
-      aria-label="main navigation"
-    >
-      <div class="navbar-brand mt-2 mb-2">
-        <a class="navbar-item" href="#">
-          <strong>{{botName}}</strong>
+<body>
 
-          <!-- or if you want to use image -->
-          <!-- <img
-            src="image link or path"
-            width="112"
-            height="28"
-          /> -->
-        </a>
+    <!-- Navbar -->
 
-        <a
-          role="button"
-          class="navbar-burger has-text-white"
-          data-target="navMenu"
-          aria-label="menu"
-          aria-expanded="false"
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
+    <div class="navbar navbar-expand-md bg-dark navbar-dark">
+        <div class="container">
+            <a href="" class="navbar-brand text-info">{{botName}}</a>
 
-      <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
-          <a href="#" class="navbar-item is-tab">
-            Home
-          </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainmenu"><span
+                    class="navbar-toggler-icon"></span></button>
 
-          <a href="#features" class="navbar-item is-tab">
-            Features
-          </a>
-
-          <a href="#stats" class="navbar-item is-tab">
-            Stats
-          </a>
-
-        </div>
-
-        <div class="navbar-end">
-          <a href="{{botServer}}" class="navbar-item is-tab" target="_blank">
-            <i class="fa-brands fa-discord"></i>
-          </a>
-
-          <div class="navbar-item">
-            <div class="buttons">
-              <a href="{{botLoginUrl}}s" class="button is-blurple">
-                <strong
-                  ><i class="fa-solid fa-right-to-bracket mr-2"></i>
-                  Login</strong
-                >
-              </a>
+            <div class="collapse navbar-collapse" id="mainmenu">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a href="#Features" class="nav-link">Features</a></li>
+                    <li class="nav-item"><a href="#Statistics" class="nav-link">Statics</a></li>
+                    <li class="nav-item"><a href="#FAQ" class="nav-link">FAQ</a></li>
+                    <li class="nav-item"><a href="./pages/commands.html" class="nav-link">Commands</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="linksdrop" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Links</a>
+                        <ul class="dropdown-menu bg-dark" aria-labelledby="linksdrop">
+                            <li><a class="dropdown-item text-muted" href="">Invite</a></li>
+                            <li><a class="dropdown-item text-muted" href="">Support Server</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <li class="navbar-nav nav-item"><a href="" class="btn btn-outline-info">Login</a></li>
             </div>
-          </div>
         </div>
-      </div>
-    </nav>
-    <!-- Navbar End -->
+    </div>
 
-    <!-- Hero Section Start -->
-    <section class="hero bg-base is-fullheight">
-      <div class="hero-body" style="background-image: url(./static/img/back.png);">
-        <div class="">
-          <div class="columns">
-            <div class="column mr-6 mt-12" data-aos="fade-up">
-              <p class="title has-text-white has-text-weight-bold">
-                Time to add {{botName}} to your server.
-              </p>
-              <p class="subtitle has-text-grey-light is-size-6 mt-3">
-                An all-in-one Discord Bot with all your needs, including Moderation, Tickets, Giveaways and more!
-              </p>
-              <div class="buttons">
-                <a href="{{botInviteUrl}}" class="button is-info">
-                  <strong>Add To Discord</strong>
-                </a>
-              </div>
+
+    <!-- Info -->
+
+
+    <section class="bg-dark text-light text-center py-5">
+        <div class="container">
+            <div class="d-flex">
+                <div>
+                    <h1><span class="text-info">{{botName}}</h1>
+                    <p>{{botName}} is the only bot you'll ever need. It comes with all the features you'd ever need, and you
+                         can customize every message and reply to your liking!
+                    </p>
+                    <a class="btn btn-info" href="">Invite {{botName}}</a>
+                    <a class="m-2 btn btn-light" href="">Support Server</a>
+                </div>
+                <img class="img-fluid w-50" src="./static/img/ArisBot.svg" alt="">
             </div>
-            <div class="column mt-6" data-aos="fade-left">
-              <img
-                class="image has-image-centered vert-move mt-4"
-                src="./static/img/static.png"
-                alt="hero image"
-                style="width: 20rem;border-radius: 50%;"
-              />
+        </div>
+    </section>
+
+
+    <!-- Features -->
+
+
+    <section  id="Features" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">
+                Features
+            </h2>
+            <div class="row text-center">
+                <div class="col-sm">
+                    <div class="card bg-dark text-light mb-3">
+                        <div class="h1 mt-3">
+                            <i class="bi bi-clock-history"></i>
+                        </div>
+                        <div class="card-body text-center">
+                            <h4 class="card-title text-info">Easy to Use</h4>
+                            <p class="card-text">{{botName}} is very easy to use and setup. It takes about 10 seconds to add it to your server.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="card bg-dark text-light mb-3">
+                        <div class="h1 mt-3">
+                            <i class="bi bi-capslock-fill"></i>
+                        </div>
+                        <div class="card-body text-center">
+                            <h4 class="card-title text-info">Custom Commands</h4>
+                            <p class="card-text">For just 2$ USD you can get a custom command added to the bot, it can be anything!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="card bg-dark text-light mb-3">
+                        <div class="h1 mt-3">
+                            <i class="bi bi-folder2-open"></i>
+                        </div>
+                        <div class="card-body text-center">
+                            <h4 class="card-title text-info">Customize Every Message</h4>
+                            <p class="card-text">Youc an customize every message the bot sends, and you can even customize the replies to your liking!</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </section>
-    <!-- Hero Section End -->
 
-    <!-- Hero Waves Start -->
-    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-      <path
-        fill="#1a2634"
-        fill-opacity="1"
-        d="M0,288L24,261.3C48,235,96,181,144,154.7C192,128,240,128,288,149.3C336,171,384,213,432,202.7C480,192,528,128,576,133.3C624,139,672,213,720,213.3C768,213,816,139,864,101.3C912,64,960,64,1008,106.7C1056,149,1104,235,1152,240C1200,245,1248,171,1296,144C1344,117,1392,139,1416,149.3L1440,160L1440,0L1416,0C1392,0,1344,0,1296,0C1248,0,1200,0,1152,0C1104,0,1056,0,1008,0C960,0,912,0,864,0C816,0,768,0,720,0C672,0,624,0,576,0C528,0,480,0,432,0C384,0,336,0,288,0C240,0,192,0,144,0C96,0,48,0,24,0L0,0Z"
-      ></path>
-    </svg> -->
-    <!-- Hero Waves End -->
 
-    <!-- Features Section Start -->
-    <section id="features" class="section mt-6 bg-base2">
-      <div class="has-text-centered">
-        <h1 class="title lined has-text-gray">Features</h1>
-        <div class="line line-center blurple"></div>
-      </div>
+    <!-- Statics -->
 
-      <!-- single feature start (Left) -->
-      <div class="single-feature">
-        <div class="shape-right" data-aos="fade-up-left">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path
-              fill="#9AAAE3"
-              d="M42.7,-62.9C50.9,-52.8,50.1,-34.4,51.7,-19.2C53.4,-4,57.4,8,56.6,20.8C55.8,33.7,50.1,47.4,39.9,53.8C29.6,60.1,14.8,59.1,0.4,58.5C-14,58,-28,57.9,-38,51.5C-48.1,45,-54.3,32.3,-61.3,18.1C-68.4,4,-76.4,-11.7,-71.9,-22.7C-67.4,-33.6,-50.4,-39.8,-36.3,-47.9C-22.2,-56.1,-11.1,-66.3,3.1,-70.5C17.2,-74.7,34.5,-72.9,42.7,-62.9Z"
-              transform="translate(100 100)"
-            />
-          </svg>
+
+    <section id="Statics" class="py-5 bg-dark text-light">
+        <div class="container">
+            <div class="py-2 text-center">
+                <h2>Statistics:</h2>
+            </div>
+            <div class="row align-items-center justify-content-center text-center -5">
+                <div class="col">
+                    <img src="./static/img/statics.svg" alt="" class="img-fluid d-none d-md-block">
+                </div>
+                <div class="col-sm p-5 h1">
+                    <i class="bi bi-hdd-stack text-primary"></i>
+                    <h5>{{serverCount}}</h5>
+                    <h5>Servers</h5>
+                </div>
+                <div class="col-sm p-5 h1">
+                    <i class="bi bi bi-people-fill text-primary"></i>
+                    <h5>{{userCount}}</h5>
+                    <h5>Users</h5>
+                </div>
+                <div class="col-sm p-5 h1">
+                    <i class="bi bi bi-hash text-primary"></i>
+                    <h5>{{commandCount}}</h5>
+                    <h5>Commands Ran</h5>
+                </div>
+            </div>
+
         </div>
-
-        <div class="columns mt-6">
-          <div class="column mr-6">
-            <h4 class="title"><span class="blurple">Moderation</span></h4>
-            <p class="subtitle mt-3 has-text-gray">
-              Great Moderation with auto-moderation and logging for all kinds of things, including but not limited to
-              Message Deleted, with the member who deleted it.
-            </p>
-          </div>
-          <div class="column" data-aos="fade-left">
-            <img
-              class="image has-image-centered"
-              src="./static/img/features_overview.svg"
-              alt="feature1 img"
-              style="width: 20rem;"
-            />
-          </div>
-        </div>
-      </div>
-      <!-- single feature end (Left) -->
-
-      <!-- single feature start (Right) -->
-      <div class="single-feature">
-        <div class="shape-left" data-aos="fade-up-right">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path
-              fill="#9AAAE3"
-              d="M54.2,-67.2C69.4,-63.5,80.4,-46.6,84.6,-28.7C88.7,-10.8,86,8.1,76.8,21.4C67.6,34.7,51.9,42.3,38.1,50.3C24.2,58.3,12.1,66.7,-2.8,70.5C-17.7,74.3,-35.3,73.6,-45.6,64.5C-55.9,55.3,-58.8,37.7,-63.3,21.2C-67.7,4.7,-73.7,-10.6,-71.8,-25.4C-69.8,-40.2,-59.9,-54.5,-46.6,-58.9C-33.3,-63.2,-16.7,-57.6,1.4,-59.6C19.5,-61.5,39,-71,54.2,-67.2Z"
-              transform="translate(100 100)"
-            />
-          </svg>
-        </div>
-
-        <div class="columns mt-6">
-          <div class="column" data-aos="fade-right">
-            <img
-              class="image has-image-centered"
-              src="./static/img/product_literation.svg"
-              alt="feature1 img"
-              style="width: 20rem;"
-            />
-          </div>
-          <div class="column">
-            <h4 class="title">
-              <span class="has-text-primary">Tickets</span>
-            </h4>
-            <p class="subtitle mt-3 has-text-gray">
-              All the ticket management you'll ever need! Including: Claim Ticket, Customzie Ticket Embed & Button and more!
-            </p>
-          </div>
-        </div>
-      </div>
-      <!-- single feature end (Right) -->
-
-      <!-- single feature start (Left) -->
-      <div class="single-feature">
-        <div class="shape-right" data-aos="fade-up-left">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path
-              fill="#9AAAE3"
-              d="M42.7,-62.9C50.9,-52.8,50.1,-34.4,51.7,-19.2C53.4,-4,57.4,8,56.6,20.8C55.8,33.7,50.1,47.4,39.9,53.8C29.6,60.1,14.8,59.1,0.4,58.5C-14,58,-28,57.9,-38,51.5C-48.1,45,-54.3,32.3,-61.3,18.1C-68.4,4,-76.4,-11.7,-71.9,-22.7C-67.4,-33.6,-50.4,-39.8,-36.3,-47.9C-22.2,-56.1,-11.1,-66.3,3.1,-70.5C17.2,-74.7,34.5,-72.9,42.7,-62.9Z"
-              transform="translate(100 100)"
-            />
-          </svg>
-        </div>
-
-        <div class="columns mt-6">
-          <div class="column mr-6">
-            <h4 class="title">
-              <span class="has-text-warning">Giveaways</span>
-            </h4>
-            <p class="subtitle mt-3 has-text-gray">
-              All the giveaway commands you'll ever need! Including: Start Giveaway, Edit Giveaway, Multiple Winners and more!
-            </p>
-          </div>
-          <div class="column" data-aos="fade-left">
-            <img
-              class="image has-image-centered"
-              src="./static/img/feeling_happy.svg"
-              alt="feature1 img"
-              style="width: 20rem;"
-            />
-          </div>
-        </div>
-      </div>
-      <!-- single feature end (Left) -->
-
-      <!-- single feature start (Right) -->
-      <div class="single-feature">
-        <div class="shape-left" data-aos="fade-up-right">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path
-              fill="#9AAAE3"
-              d="M54.2,-67.2C69.4,-63.5,80.4,-46.6,84.6,-28.7C88.7,-10.8,86,8.1,76.8,21.4C67.6,34.7,51.9,42.3,38.1,50.3C24.2,58.3,12.1,66.7,-2.8,70.5C-17.7,74.3,-35.3,73.6,-45.6,64.5C-55.9,55.3,-58.8,37.7,-63.3,21.2C-67.7,4.7,-73.7,-10.6,-71.8,-25.4C-69.8,-40.2,-59.9,-54.5,-46.6,-58.9C-33.3,-63.2,-16.7,-57.6,1.4,-59.6C19.5,-61.5,39,-71,54.2,-67.2Z"
-              transform="translate(100 100)"
-            />
-          </svg>
-        </div>
-
-        <div class="columns mt-6">
-          <div class="column" data-aos="fade-right">
-            <img
-              class="image has-image-centered"
-              src="./static/img/music.svg"
-              alt="feature1 img"
-              style="width: 20rem;"
-            />
-          </div>
-          <div class="column">
-            <h4 class="title"><span class="has-text-info">More</span></h4>
-            <p class="subtitle mt-3 has-text-gray">
-              This includes, Music, Fun Commands and an Economy System!
-            </p>
-          </div>
-        </div>
-      </div>
-      <!-- single feature end (Right) -->
     </section>
-    <!-- Features Section End -->
 
-    <!-- Stats Section Start -->
-    <section id="stats" class="section mt-6">
-      <div class="has-text-centered">
-        <h1 class="title lined">Stats</h1>
-        <div class="line line-center blurple"></div>
-      </div>
 
-      <div class="columns mt-6">
-        <div class="column has-text-centered">
-          <p class="title has-text-weight-bold lined">000</p>
-          <span class="subtitle has-text-weight-bold blurple"><i class="fa-solid fa-server"></i> Servers</span>
+    <!-- FAQ -->
+
+    <section id="FAQ" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-3">
+                Frequently Asked Qusetions
+            </h2>
+            <div class="accordion accordion-flush" id="your-faq">
+                <div class="accordion-item">
+                    <h5 class="accordion-header" id="qusetion-1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#answer-1">
+                            Is {{botName}} free?
+                        </button>
+                    </h5>
+                    <div class="accordion-collapse collapse p-3" id="answer-1" data-bs-parent="#your-faq">
+                        Yes! It is completely free to use, however if you want some additions, you can pay 2$ USD for a custom command.
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h5 class="accordion-header" id="qusetion-2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#answer-2">
+                            How do I add {{botName}} to my server?
+                        </button>
+                    </h5>
+                    <div class="accordion-collapse collapse p-3" id="answer-2" data-bs-parent="#your-faq">
+                        You can add {{botName}} to your server by clicking the "Invite {{botName}}" button on the top of the page.
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h5 class="accordion-header" id="qusetion-3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#answer-3">
+                            How do I get a custom command?
+                        </button>
+                    </h5>
+                    <div class="accordion-collapse collapse p-3" id="answer-3" data-bs-parent="#your-faq">
+                        You can get a custom command by joining our Support Server and creating a ticket.
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="column has-text-centered">
-          <p class="title has-text-weight-bold lined">000</p>
-          <span class="subtitle has-text-weight-bold blurple"><i class="fa-solid fa-terminal"></i> Commands</span>
-        </div>
-
-        <div class="column has-text-centered">
-          <p class="title has-text-weight-bold lined">000</p>
-          <span class="subtitle has-text-weight-bold blurple"><i class="fa-solid fa-users"></i> Users</span>
-        </div>
-      </div>
     </section>
-    <!-- Stats Section End -->
 
-    <!-- Invite Section Start -->
-    <section class="section mt-6">
-      <div class="columns">
-        <div class="column has-text-left">
-          <p class="title has-text-weight-bold">
-            Ready to try <span class="blurple">{{botName}}</span>?
-          </p>
-          <p class="subtitle mt-3 has-text-gray">
-            Click the button below to get started!
-          </p>
-          <a href="#" class="button is-blurple is-medium"
-            ><strong><i class="fa-solid fa-book"></i> Get Started</strong></a
-          >
+
+    <!-- footer -->
+
+    <div class="footer-clean bg-dark">
+    <footer>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-4 col-md-3 item">
+                    <h3>Quick access</h3>
+                    <ul>
+                        <li><a href="#Features">Features</a></li>
+                        <li><a href="#Statics">Statics</a></li>
+                        <li><a href="#FAQ">Ask me</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-md-3 item">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="./static/pages/commands.html">Commands</a></li>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">License</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-md-3 item">
+                    <h3>Links</h3>
+                    <ul>
+                        <li><a href="#">Support server</a></li>
+                        <li><a href="#">Invite bot</a></li>
+                        <li><a href="#">Github</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 item social"><a href="#"><ion-icon name="logo-discord"></ion-icon></a><a href="#"><ion-icon name="logo-facebook"></ion-icon></a><a href="#"><ion-icon name="logo-twitter"></ion-icon></a><a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <p class="copyright">{{botName}} © 2022</p>
+                </div>
+            </div>
         </div>
-
-        <div class="column"></div>
-      </div>
-    </section>
-    <!-- Invite Section End -->
-
-    <!-- Footer Section Start -->
-    <footer class="footer bg-base">
-      <div class="content has-text-centered has-text-white">
-        <div class="mb-2">
-          <a href="#" class="has-text-white" target="_blank">
-            <i class="fa-brands fa-discord"></i>
-          </a>
+        <div class="page-footer font-small text-light mt-5">
+        <div class="footer-copyright text-center">Made with 💖 by
+            <a href="https://github.com/Hadi-koubeissi/">Hadi Koubeissi</a>
+            © 2022 Copyright
+          </div>
         </div>
-
-        <p>
-          <span class="has-text-weight-bold">{{botName}}</span>
-          <br />
-          &copy; <span id="cp-year"></span> Copyright {{botOwner}}. All Rights
-          Reserved.
-        </p>
-
-        <p style="letter-spacing: 0.1em;" class="is-uppercase">
-          Website Designed By
-          <a
-            href="https://jstnlt.my.id"
-            class="blurple has-text-weight-bold"
-            target="_blank"
-            >JstnLT</a
-          >. <br>
-          Website Edited By
-          <a
-            href="https://elasta-hxcks.cf"
-            class="blurple has-text-weight-bold"
-            target="_blank"
-            >DeadSafari</a
-          >.
-        </p>
-      </div>
     </footer>
-    <!-- Footer Section End -->
+</div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/tippy.js@6"></script>
-    <script src="./static/js/script.js"></script>
-  </body>
+    <script src="./static/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+
 </html>

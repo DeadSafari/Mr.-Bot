@@ -1,121 +1,168 @@
+#imports
+import asyncio
 import datetime
 import json
 import os
-import time
+import traceback
 import discord
 from discord.ext import commands
-from typing import Union, Optional
+from discord.ext.commands import Bot
+from typing import List, Tuple, Union, Optional
 from bot.functions.checkForPerms import checkForPerms
-from bot.functions.formatString import formatString, formatString
+from bot.functions.formatString import formatString 
 from bot.functions.isEnabled import isEnabled
 from bot.functions.isGloballyEnabled import isGloballyEnabled
 from bot.functions.logToDb import logToDb
 from bot.functions.returnLogsChannel import returnLogsChannel
+from bot.functions.returnEmbedOrMessage import returnEmbedOrMessage
+from bot.functions.checksForCommands import checksForCommands
 
 class kickCommand(commands.Cog):
-    def __init__(self, bot: commands.Bot):
-        self.bot: commands.Bot = bot
-    
+    def __init__(
+        self,
+        bot: Bot
+    ):
+        self.bot: Bot = bot
+
     @commands.Cog.listener()
     async def on_ready(self):
-        self.bot.log.info(f"commands.Kick is now ready!")
-
-    @commands.hybrid_command(
+        self.bot.log.info("commands.Kick is now ready!")
+        with open('tasks.json', 'r') as f:
+            tasks: dict = json.load(f)
+    
+    @discord.app_commands.command(
         name="kick",
         description="Kicks the given member.",
-        usage="<member> [reason]",
-        cooldownLimit=[5, "seconds"]
+        # args=[['member', 'The member to ban.', 'required'], ['time', 'The time to ban the member for.', 'optional'], ['delete message days', 'The amount of messages to delete for the member. Defaults to 1.', 'optional'], ['reason', 'The reason for banning this member', 'optional']]
     )
-    @discord.app_commands.check(isGloballyEnabled)
-    @discord.app_commands.check(checkForPerms)
-    @commands.check(isGloballyEnabled)
-    @commands.check(checkForPerms)
+    @discord.app_commands.describe(member="The member to kick.")
+    @discord.app_commands.describe(reason="The reason for kicking this member. (optional)")
     @discord.app_commands.guilds(900465934257520671)
+    @discord.app_commands.check(isGloballyEnabled)
+    @discord.app_commands.check(isEnabled)
+    @discord.app_commands.check(checkForPerms)
     async def _kick(
         self,
-        ctx: Union[discord.Interaction, commands.Context],
-        member: Optional[discord.Member],
-        *,
-        reason: Optional[str]
+        interaction: discord.Interaction,
+        member: Union[discord.Member, discord.User] = None,
+        reason: Optional[str] = None
     ):
-        if not reason: reason = ""
-        author = ctx.author or ctx.user
-        if author.bot: return
-        enabled = isEnabled(ctx, "kick")
-        with open("data.json", mode="r") as f:
+        await interaction.response.defer()
+        with open("data.json") as f:
             data: dict = json.load(f)
-        if not enabled: return await ctx.send(data[str(ctx.guild.id)]['disabledCommandMessage'])
+        guildData = data[str(interaction.guild.id)]
+        commandData = guildData['moderation']['commands'][interaction.command.name]
         if member is None:
+            if commandData[interaction.command.name+'MessageType'] == "embed":
+                response = returnEmbedOrMessage(
+                    ctx=interaction,
+                    reason=reason,
+                    member=member,
+                    embedData=commandData[interaction.command.name+'Embed']
+                )
+                await interaction.followup.send(embed=response)
+                return
+
+        errorMessage = checksForCommands(
+            ctx=interaction,
+            member=member,
+            author=interaction.user,
+            reason=reason,
+            commandData=commandData
+        )
+        if errorMessage:
+            return await interaction.followup.send(content=errorMessage)
+
+        if not reason:
+            reason = commandData[interaction.command.name+'DefaultReason']
+
+        if commandData[interaction.command.name+"SendType"] == "embed":
+            response = returnEmbedOrMessage(interaction, reason=reason, member=member, embedData=commandData[interaction.command.name+'SendEmbed'])
+    
+        else:
+            response = formatString(
+                commandData[interaction.command.name+'Message'],
+                ctx=interaction,
+                member=member,
+                reason=reason
+            )
+
+        if commandData[interaction.command.name+'Dm']:
+            if commandData[interaction.command.name+'DmMessageType'] == "embed":
+                dmResponse = returnEmbedOrMessage(interaction, reason=reason, member=member, embedData=commandData[interaction.command.name+'DmEmbed'])
+            else:
+                dmResponse = formatString(
+                    commandData[interaction.command.name+'DmEmbed'],
+                    ctx=interaction,
+                    member=member,
+                    reason=reason
+                )
+            try:
+                if isinstance(dmResponse, discord.Embed):
+                    await member.send(embed=dmResponse)
+                else:
+                    await member.send(content=dmResponse)
+            except Exception as e:
+                error = commandData['errors']['failedToSendDmToMember']
+                if error != "null":
+                    await interaction.followup.send(content=
+                        formatString(
+                            error,
+                            ctx=interaction,
+                            member=member,
+                            reason=reason
+                        )
+                    )
+
+        try:
+            await interaction.guild.kick(
+                member,
+                reason=formatString(reason, ctx=interaction, member=member, reason=reason)
+            )
+        except Exception as e:
+            await interaction.followup.send(content="Hey this is rare. For some reason, I was unable to kick this member. You might wanna try again. This error has already been logged, and we're working on fixing it! Sorry for the inconvenience!")
+
+            """
+            Add Error logging system here later
+            """
+
+            return
+
+
+
+        if isinstance(response, discord.Embed):
+            await interaction.followup.send(embed=response)
+        else:
+            await interaction.followup.send(content=response)
+
+        if commandData[interaction.command.name+"Logs"]:
             embed = discord.Embed(
                 color=discord.Color.from_str(os.getenv('DEFAULTEMBEDCOLOR')),
-                title="Kick Command",
-                description=f"**Description:** Kicks the given member.\n**Cooldown:** 5 seconds\n**Usage:** {ctx.prefix}kick <member> [reason]\n**Example:**\n{ctx.prefix}kick @DeadSafari Breaking Rule 34.\n{ctx.prefix}kick 958390293760184392 Breaking rule 4.\n{ctx.prefix}kick DeadSafari",
-                timestamp=datetime.datetime.now()
+                title="Member Kicked",
+                description=f"I can't be arsed to make this a custom thing yet. So here's the default embed. Sorry!"
             )
-            await ctx.send(embed=embed)
-            return
-        if not ctx.guild.me.guild_permissions.kick_members:
-            return await ctx.send(":x: I don't have the `kick members` permission!")
-        if member == author:
-            return await ctx.send(":x: You can't kick yourself!")
-        if member == ctx.guild.owner:
-            return await ctx.send(":x: You can't kick the server owner!")
-        if not ctx.guild.me.top_role > member.top_role:
-            return await ctx.send(":x: I can't kick this member, because I don't have a role higher than them.")
-        if data[str(ctx.guild.id)]['moderation']['commands']['kick']['kickMessageType'] == "embed":
-            ctxBed = discord.Embed()
-            ctxBed.title = data[str(ctx.guild.id)]['moderation']['commands']['kick']['kickEmbedTitle']
-            ctxBed.description = data[str(ctx.guild.id)]['moderation']['commands']['kick']['kickEmbedDescription']
-            if data[str(ctx.guild.id)]['moderation']['commands']['kick']['kickIncludeTimestamp']:
-                ctxBed.timestamp = datetime.datetime.now()
-            ctxBed.color = discord.Color.from_str(data[str(ctx.guild.id)]['moderation']['commands']['kick']['kickEmbedColor'])
-        else:
-            message = data[str(ctx.guild.id)]['moderation']['commands']['kick']['kickMessage']
-        if data[str(ctx.guild.id)]['moderation']['commands']['kick']['kickDm']:
-            if data[str(ctx.guild.id)]['moderation']['commands']['kick']['kickDmMessageType'] == "embed":
-                banDm = discord.Embed()
-                banDm.title = data[str(ctx.guild.id)]['moderation']['commands']['kick']['kickDmMessageEmbedTitle']
-                banDm.description = data[str(ctx.guild.id)]['moderation']['commands']['kick']['kickDmMessageEmbedDescription']
-                banDm.color = discord.Color.from_str(data[str(ctx.guild.id)]['moderation']['commands']['kick']['kickDmMessageEmbedColor'])
-                if data[str(ctx.guild.id)]['moderation']['commands']['kick']['kickDmMessageEmbedIncludeTimestamp']:
-                    banDm.timestamp = datetime.datetime.now()
-            else:
-                dmMessage = data[str(ctx.guild.id)]['moderation']['commands']['kick']['kickDmMessage']
-        logsEmbed = discord.Embed(
-            description=f"**Kicked by:** {author} | {author.id}\n**Member Kicked:** {member} {member.id}\n**Reason:** {reason}",
-            color=discord.Color.from_str(os.getenv("DEFAULTEMBEDCOLOR")),
-            timestamp=datetime.datetime.now()
-        )
-        logsEmbed.set_author(name="Member Kicked")
-        if data[str(ctx.guild.id)]['moderation']['commands']['kick']['kickMessageType'] == "embed":
-            await ctx.send(embed=ctxBed)
-        else:
-            await ctx.send(message)
-        if data[str(ctx.guild.id)]['moderation']['commands']['kick']['kickDm']:
-            if data[str(ctx.guild.id)]['moderation']['commands']['kick']['kickDmMessageType'] == "embed":
-                try: await member.send(embed=banDm)
-                except: pass
-            else:
+            channel = returnLogsChannel(self.bot, interaction.guild.id)
+            if channel:
                 try:
-                    await member.send(dmMessage)
-                except: pass
-        await member.kick(reason=reason)
+                    await channel.send(embed=embed)
+                except Exception as e:
+                    await interaction.followup.send(content="Hey this is rare. For some reason, I was unable to send the logs to the logs channel. You might wanna try again. This error has already been logged, and we're working on fixing it! Sorry for the inconvenience!")
+
+                    """
+                    Add Error logging system here later
+                    """
         logToDb(
-            ctx=ctx,
+            interaction,
             member=member,
             type="kick",
-            reason=reason
+            reason=reason,
+            argTime="N/A"
         )
-        LogsChannel = returnLogsChannel(self.bot, ctx.guild.id)
-        if LogsChannel:
-            await LogsChannel.send(embed=logsEmbed)
 
-    @commands.command()
-    async def reload(self, ctx, name: str):
-        try:
-            await self.bot.unload_extension(name)
-        except: await ctx.send("not loaded, attempting to load it...")
-        await self.bot.load_extension(name)
 
-async def setup(bot):
-    await bot.add_cog(kickCommand(bot=bot))
+async def setup(bot: Bot) -> None:
+    await bot.add_cog(
+        kickCommand(
+            bot=bot
+        )
+    )
