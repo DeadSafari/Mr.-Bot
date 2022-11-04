@@ -36,8 +36,7 @@ async def commands():
     botName="Mr. Bot",
     homePage=url_for("index"),
     inviteUrl=url_for("invite"),
-    supportServer=url_for('server'),
-    commansPage=url_for("commands"),
+    supportServer=url_for('server')
     )
 
 
@@ -48,7 +47,7 @@ async def invite():
 
 @app.route("/server")
 async def server():
-    return redirect('https://google.com')
+    return redirect('https://discord.gg/U7GmAKFn2c')
 
 #create the login endpoint
 @app.route("/login")
@@ -71,3 +70,5 @@ async def dashboard():
 
 async def run():
     await app.run_task()
+
+asyncio.run(run())

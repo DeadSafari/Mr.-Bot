@@ -213,10 +213,10 @@ class muteCommand(commands.Cog):
         with open("tasks.json", mode="r") as f:
             data: dict = json.load(f)
         
-        timestamp_unban = datetime.datetime.timestamp(datetime.datetime.utcnow() + datetime.timedelta(seconds=seconds))
+        timestamp_unmute = datetime.datetime.timestamp(datetime.datetime.utcnow() + datetime.timedelta(seconds=seconds))
 
         data['mute'].append(
-            {"type": "ban", "member": member.id, "guild": interaction.guild.id, "timestamp": timestamp_unban, "role_id": guildData['moderation']['muteRoleId']}
+            {"type": "ban", "member": member.id, "guild": interaction.guild.id, "timestamp": timestamp_unmute, "role_id": guildData['moderation']['muteRoleId']}
         )
         with open("tasks.json", mode="w") as f:
             json.dump(data, f, indent=4)
@@ -224,7 +224,7 @@ class muteCommand(commands.Cog):
         logToDb(
             interaction,
             member=member,
-            type="ban",
+            type="mute",
             reason=reason,
             argTime=time
         )

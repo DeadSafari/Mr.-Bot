@@ -41,7 +41,7 @@ class banCommand(commands.Cog):
     
     @discord.app_commands.command(
         name="ban",
-        description="Bans the given member(s).",
+        description="Bans the given member.",
         # args=[['member', 'The member to ban.', 'required'], ['time', 'The time to ban the member for.', 'optional'], ['delete message days', 'The amount of messages to delete for the member. Defaults to 1.', 'optional'], ['reason', 'The reason for banning this member', 'optional']]
     )
     @discord.app_commands.describe(member="The member to ban.")
