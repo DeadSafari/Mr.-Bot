@@ -252,6 +252,88 @@
                         "image_url": "null"
                     },
                     "muteDmMessage": "You have been muted in [server.name]! Reason: [reason]"
+                },
+                "unmute": {
+                    "enabled": true,
+                    "errors": {
+                        "failedGlobalAllowedCheck": "This command is globally disabled!",
+                        "failedPermissionCheck": ":x: You don't have the permission to use this command!",
+                        "failedEnableCheck": ":x: This command is disabled in this server!",
+                        "failedMutePermissionCheck": ":x: I don't have the `Manage Roles` permission!",
+                        "authorEqualsMember": ":x: You cannot mute yourself!",
+                        "ownerEqualsMember": ":x: You cannot mute the server owner!",
+                        "protectedRole": ":x: This user has a protected role. You cannot mute this member!",
+                        "roleHierarchyError": ":x: You cannot mute this member due to role hierarchy!",
+                        "failedToSendToLogsChannel": ":x: I could not send a message to the logs channel. Please ensure that I have the permission to view & send messages there, and that it exists.",
+                        "failedToSendDmToMember": "null",
+                        "memberIsNotMuted": ":x: This member is not muted!"
+                    },
+                    "unmuteDefaultReason": "No Reason",
+                    "unmuteMessageType": "embed",
+                    "unmuteEmbed": {
+                        "color": "0x1c7d44",
+                        "title": "Unmute Command",
+                        "url": "null",
+                        "description": "**Description:** unmutes the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]unmute <member> [reason]",
+                        "timestamp": true,
+                        "author": {
+                            "name": "null",
+                            "url": "null",
+                            "icon_url": "null"
+                        },
+                        "fields": [],
+                        "footer": {
+                            "text": "null",
+                            "icon_url": "null"
+                        },
+                        "thumbnail_url": "null",
+                        "image_url": "null"
+                    },
+                    "unmuteSendType": "embed",
+                    "unmuteSendEnabled": true,
+                    "unmuteSendEmbed": {
+                        "color": "0x1c7d44",
+                        "title": "null",
+                        "url": "null",
+                        "description": "***__Successfully unmuted [member.fullName] | [reason]__***",
+                        "timestamp": false,
+                        "author": {
+                            "name": "null",
+                            "url": "null",
+                            "icon_url": "null"
+                        },
+                        "fields": [],
+                        "footer": {
+                            "text": "null",
+                            "icon_url": "null"
+                        },
+                        "thumbnail_url": "null",
+                        "image_url": "null"
+                    },
+                    "unmuteMessage": "***__Successfully unmuted [member.fullName]__***",
+                    "unmuteLogs": true,
+                    "unmuteDm": true,
+                    "unmuteDmMessageType": "embed",
+                    "unmuteDmEmbed": {
+                        "color": "0x1c7d44",
+                        "title": "null",
+                        "url": "null",
+                        "description": "null",
+                        "timestamp": "null",
+                        "author": {
+                            "name": "null",
+                            "url": "null",
+                            "icon_url": "null"
+                        },
+                        "fields": [],
+                        "footer": {
+                            "text": "null",
+                            "icon_url": "null"
+                        },
+                        "thumbnail_url": "null",
+                        "image_url": "null"
+                    },
+                    "unmuteDmMessage": "You have been muted in [server.name]! Reason: [reason]"
                 }
             }
         }

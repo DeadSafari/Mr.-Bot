@@ -1,10 +1,5 @@
 #imports
 import os
-with open("requirements.txt", mode="r") as f:
-    requirements = f.read().splitlines()
-for requirement in requirements:
-    os.system(f"pip install {requirement}")
-os.system("cls")
 from website.index import run
 from bot.botMain import main
 import asyncio

@@ -2,3 +2,4 @@ discord
 quart
 python-dotenv
 quart-discord
+discord-ext-ipc
