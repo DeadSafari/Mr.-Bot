@@ -69,4 +69,7 @@ async def dashboard():
     return await render_template("dashboard.html", user=user)
 
 async def run():
-    await app.run_task()
+    await app.run_task(
+        host="0.0.0.0",
+        port=os.getenv("PORT")
+    )
