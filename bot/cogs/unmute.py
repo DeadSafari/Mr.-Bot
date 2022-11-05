@@ -125,10 +125,7 @@ class unmuteCommand(commands.Cog):
                     )
 
         try:
-            await interaction.guild.kick(
-                member,
-                reason=formatString(reason, ctx=interaction, member=member, reason=reason)
-            )
+            await member.remove_roles(interaction.guild.get_role(guildData['moderation']['muteRoleId']))
             pass
         except Exception as e:
             await interaction.followup.send(content="Hey this is rare. For some reason, I was unable to unmute this member. You might wanna try again. This error has already been logged, and we're working on fixing it! Sorry for the inconvenience!")
