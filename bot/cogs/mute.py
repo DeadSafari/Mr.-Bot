@@ -124,6 +124,15 @@ class muteCommand(commands.Cog):
         if not reason:
             reason = commandData[interaction.command.name+'DefaultReason']
 
+        if member.get_role(guildData['moderation']['muteRoleId']):
+            error = formatString(
+                commandData['errors']['memberIsAlreadyMuted'],
+                member=member,
+                ctx=interaction,
+                reason=reason
+            )
+            return await interaction.followup.send(content=error)
+
         if commandData[interaction.command.name+"SendType"] == "embed":
             response = returnEmbedOrMessage(interaction, reason=reason, member=member, embedData=commandData[interaction.command.name+'SendEmbed'])
     

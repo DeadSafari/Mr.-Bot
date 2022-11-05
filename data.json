@@ -21,8 +21,7 @@
                         "roleHierarchyError": ":x: You cannot ban this member due to role hierarchy!",
                         "failedToSendToLogsChannel": ":x: I could not send a message to the logs channel. Please ensure that I have the permission to view & send messages there, and that it exists.",
                         "failedToSendDmToMember": "null",
-                        "failedTimeConvert": ":x: The time format you provided is invalid! Please use the format `1d 2h 3m 4s`.",
-                        "muteRoleNotFound": ":x: The mute role id that you have specified was not found! Please ensure that you have specified a valid role id."
+                        "failedTimeConvert": ":x: The time format you provided is invalid! Please use the format `1d 2h 3m 4s`."
                     },
                     "banDefaultReason": "No Reason",
                     "banMessageType": "embed",
@@ -184,7 +183,9 @@
                         "protectedRole": ":x: This user has a protected role. You cannot mute this member!",
                         "roleHierarchyError": ":x: You cannot mute this member due to role hierarchy!",
                         "failedToSendToLogsChannel": ":x: I could not send a message to the logs channel. Please ensure that I have the permission to view & send messages there, and that it exists.",
-                        "failedToSendDmToMember": "null"
+                        "failedToSendDmToMember": "null",
+                        "muteRoleNotFound": ":x: The mute role id that you have specified was not found! Please ensure that you have specified a valid role id.",
+                        "memberAlreadyMuted": ":x: This member is already muted!"
                     },
                     "muteDefaultReason": "No Reason",
                     "muteMessageType": "embed",
