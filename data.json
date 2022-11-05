@@ -185,7 +185,7 @@
                         "failedToSendToLogsChannel": ":x: I could not send a message to the logs channel. Please ensure that I have the permission to view & send messages there, and that it exists.",
                         "failedToSendDmToMember": "null",
                         "muteRoleNotFound": ":x: The mute role id that you have specified was not found! Please ensure that you have specified a valid role id.",
-                        "memberAlreadyMuted": ":x: This member is already muted!"
+                        "memberIsAlreadyMuted": ":x: This member is already muted!"
                     },
                     "muteDefaultReason": "No Reason",
                     "muteMessageType": "embed",
