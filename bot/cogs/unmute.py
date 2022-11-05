@@ -85,7 +85,7 @@ class unmuteCommand(commands.Cog):
                 ctx=interaction,
                 reason=reason
             )
-            return await interaction.followup(error)
+            return await interaction.followup.send(content=error)
         if commandData[interaction.command.name+"SendType"] == "embed":
             response = returnEmbedOrMessage(interaction, reason=reason, member=member, embedData=commandData[interaction.command.name+'SendEmbed'])
     
