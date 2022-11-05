@@ -84,7 +84,6 @@ class muteCommand(commands.Cog):
         )
         if errorMessage:
             return await interaction.followup.send(content=errorMessage)
-        self.bot.log.info("converting time")
         if time:
             try:
                 seconds = time[:-1] #Gets the numbers from the time argument, start to -1
@@ -106,9 +105,7 @@ class muteCommand(commands.Cog):
                             reason=reason
                     ))
                     return
-                self.bot.log.info("converted time")
             except Exception as e:
-                    self.bot.log.info("exception")
                     traceback.print_exc()
                     await interaction.followup.send(
                         content=formatString(
