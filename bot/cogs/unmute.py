@@ -85,6 +85,7 @@ class unmuteCommand(commands.Cog):
                 ctx=interaction,
                 reason=reason
             )
+            return await interaction.followup(response)
         if commandData[interaction.command.name+"SendType"] == "embed":
             response = returnEmbedOrMessage(interaction, reason=reason, member=member, embedData=commandData[interaction.command.name+'SendEmbed'])
     
@@ -124,10 +125,10 @@ class unmuteCommand(commands.Cog):
                     )
 
         try:
-            # await interaction.guild.kick(
-            #     member,
-            #     reason=formatString(reason, ctx=interaction, member=member, reason=reason)
-            # )
+            await interaction.guild.kick(
+                member,
+                reason=formatString(reason, ctx=interaction, member=member, reason=reason)
+            )
             pass
         except Exception as e:
             await interaction.followup.send(content="Hey this is rare. For some reason, I was unable to unmute this member. You might wanna try again. This error has already been logged, and we're working on fixing it! Sorry for the inconvenience!")
