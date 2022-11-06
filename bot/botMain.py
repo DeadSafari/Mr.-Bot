@@ -59,7 +59,7 @@ async def main():
         intents=intents,
         case_insensitive=True,
         status=discord.Status.online,
-        activity=discord.Activity(type=discord.ActivityType.watching, name="https://mr-bot.ml/"),
+        activity=discord.Activity(type=discord.ActivityType.watching, name="https://www.mr-bot.ml/"),
         strip_after_prefix=True,
         help_command=None
     )

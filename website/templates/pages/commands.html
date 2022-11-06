@@ -204,21 +204,45 @@
                     </div>
 
 
-                    <div class="accordion accordion-flush mt-2" id="ping">
+                    <div class="accordion accordion-flush mt-2" id="warn">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-headingOne">
                                 <button class="accordion-button collapsed" data-bs-toggle="collapse"
-                                    data-bs-target="#fping">
-                                    /ping&nbsp; <span class="command-descreption">- Get bot&#39;s host server status
-                                        &amp; latency</span>
+                                    data-bs-target="#fwarn">
+                                    /warn&nbsp; <span class="command-descreption">- Warns the given member.</span>
                                 </button>
                             </h2>
-                            <div id="fping" class="accordion-collapse collapse" data-bs-parent="#ping">
+                            <div id="fwarn" class="accordion-collapse collapse" data-bs-parent="#warn">
                                 <div class="accordion-body">
                                     <span>Usage Examples:</span> <br />
                                     <span class="examples">
 
-                                        /ping
+                                        /warn &lt;member&gt; [reason]<br>
+                                        /warn @DeadSafari Spamming<br>
+                                        /warn @DeadSafari<br>
+
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion accordion-flush mt-2" id="unwarn">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                                    data-bs-target="#funwarn">
+                                    /unwarn&nbsp; <span class="command-descreption">- Unwarns the given member.</span>
+                                </button>
+                            </h2>
+                            <div id="funwarn" class="accordion-collapse collapse" data-bs-parent="#unwarn">
+                                <div class="accordion-body">
+                                    <span>Usage Examples:</span> <br />
+                                    <span class="examples">
+
+                                        /unwarn &lt;member&gt; [reason]<br>
+                                        /unwarn @DeadSafari Pardoned<br>
+                                        /unwarn @DeadSafari<br>
 
                                     </span>
                                 </div>
@@ -375,7 +399,7 @@
     </div>
 
     <input id="commands"
-        value="[{&#34;title&#34;:&#34;&lt;i class=&#39;fas fa-gift ttt&#39;&gt;&lt;/i&gt;&amp;nbsp; Moderation Commands&#34;,&#34;commands&#34;:[&#34;ban&#34;,&#34;kick&#34;,&#34;mute&#34;]},{&#34;title&#34;:&#34;&lt;i class=&#39;fas fa-globe-europe ttt&#39;&gt;&lt;/i&gt;&amp;nbsp; General Commands&#34;,&#34;commands&#34;:[&#34;help&#34;,&#34;ping&#34;,&#34;invite&#34;]},{&#34;title&#34;:&#34;&lt;i class=&#39;fas fa-hammer-war ttt&#39;&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp; Leveling Commands&#34;,&#34;commands&#34;:[&#34;leaderboard&#34;]},{&#34;title&#34;:&#34;&lt;i class=&#39;fas fas fa-crown ttt&#39;&gt;&lt;/i&gt;&amp;nbsp; Premium Commands&#34;,&#34;commands&#34;:[&#34;reactionrole&#34;,&#34;slowmode&#34;]}]"
+        value="[{&#34;title&#34;:&#34;&lt;i class=&#39;fas fa-gift ttt&#39;&gt;&lt;/i&gt;&amp;nbsp; Moderation Commands&#34;,&#34;commands&#34;:[&#34;ban&#34;,&#34;kick&#34;,&#34;mute&#34;]},{&#34;title&#34;:&#34;&lt;i class=&#39;fas fa-globe-europe ttt&#39;&gt;&lt;/i&gt;&amp;nbsp; General Commands&#34;,&#34;commands&#34;:[&#34;help&#34;,&#34;warn#34;,&#34;invite&#34;]},{&#34;title&#34;:&#34;&lt;i class=&#39;fas fa-hammer-war ttt&#39;&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp; Leveling Commands&#34;,&#34;commands&#34;:[&#34;leaderboard&#34;]},{&#34;title&#34;:&#34;&lt;i class=&#39;fas fas fa-crown ttt&#39;&gt;&lt;/i&gt;&amp;nbsp; Premium Commands&#34;,&#34;commands&#34;:[&#34;reactionrole&#34;,&#34;slowmode&#34;]}]"
         hidden />
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="./static/fontawesome/all.min.js"></script>
