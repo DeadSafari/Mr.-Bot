@@ -335,6 +335,57 @@
                         "image_url": "null"
                     },
                     "unmuteDmMessage": "You have been muted in [server.name]! Reason: [reason]"
+                },
+                "delete": {
+                    "enabled": true,
+                    "errors": {
+                        "failedGlobalAllowedCheck": "This command is globally disabled!",
+                        "failedPermissionCheck": ":x: You don't have the permission to use this command!",
+                        "failedEnableCheck": ":x: This command is disabled in this server!",
+                        "idNotFound": ":x: The ID you provided was not found!"
+                    },
+                    "delteMessageType": "embed",
+                    "deleteEmbed": {
+                        "color": "0x1c7d44",
+                        "title": "Delete Command",
+                        "url": "null",
+                        "description": "**Description:** deletes the given modlog.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]delete <ID>",
+                        "timestamp": true,
+                        "author": {
+                            "name": "null",
+                            "url": "null",
+                            "icon_url": "null"
+                        },
+                        "fields": [],
+                        "footer": {
+                            "text": "null",
+                            "icon_url": "null"
+                        },
+                        "thumbnail_url": "null",
+                        "image_url": "null"
+                    },
+                    "deleteSendType": "embed",
+                    "deleteSendEnabled": true,
+                    "deleteSendEmbed": {
+                        "color": "0x1c7d44",
+                        "title": "null",
+                        "url": "null",
+                        "description": "***__Successfully deleted modlog!__***",
+                        "timestamp": false,
+                        "author": {
+                            "name": "null",
+                            "url": "null",
+                            "icon_url": "null"
+                        },
+                        "fields": [],
+                        "footer": {
+                            "text": "null",
+                            "icon_url": "null"
+                        },
+                        "thumbnail_url": "null",
+                        "image_url": "null"
+                    },
+                    "deleteMessage": "***__Successfully modlog!__***"
                 }
             }
         }

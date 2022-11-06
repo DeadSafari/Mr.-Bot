@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 from typing import Optional, Union
 
-def formatString(string: str, ctx: Union[commands.Context, discord.Interaction], member: discord.Member=None, reason: str=None):
+def formatString(string: str, ctx: Union[commands.Context, discord.Interaction], member=None, reason: str=None):
     # with open("string.docs", mode="r") as f:
     #     data: dict = json.load(f)
     # astr: str
