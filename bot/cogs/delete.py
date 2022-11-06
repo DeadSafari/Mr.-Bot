@@ -41,7 +41,7 @@ class deleteCommand(commands.Cog):
     async def _delete(
         self,
         interaction: discord.Interaction,
-        id: Union[discord.Member, discord.User] = None
+        id: str = None
     ):
         await interaction.response.defer()
         with open("data.json") as f:
