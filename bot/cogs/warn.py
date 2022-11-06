@@ -31,7 +31,7 @@ class warnCommand(commands.Cog):
             tasks: dict = json.load(f)
     
     @discord.app_commands.command(
-        name="kick",
+        name="warn",
         description="Warns the given member.",
         # args=[['member', 'The member to ban.', 'required'], ['time', 'The time to ban the member for.', 'optional'], ['delete message days', 'The amount of messages to delete for the member. Defaults to 1.', 'optional'], ['reason', 'The reason for banning this member', 'optional']]
     )
@@ -41,7 +41,7 @@ class warnCommand(commands.Cog):
     @discord.app_commands.check(isGloballyEnabled)
     @discord.app_commands.check(isEnabled)
     @discord.app_commands.check(checkForPerms)
-    async def _kick(
+    async def _warn(
         self,
         interaction: discord.Interaction,
         member: Union[discord.Member, discord.User] = None,
