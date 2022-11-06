@@ -66,7 +66,7 @@ class deleteCommand(commands.Cog):
         
         if not response:
             error = formatString(
-                commandData['erros']['idNotFound']
+                commandData['errors']['idNotFound']
             )
             await interaction.followup.send(content=error)
             return
