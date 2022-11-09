@@ -1,0 +1,470 @@
+{"moderation": {
+    "moderatorRoles": [],
+    "administratorRoles": [],
+    "protectedRoles": [],
+    "logsChannel": 0,
+    "muteRoleId": 0,
+    "modLogs": [],
+    "commands": {
+        "ban": {
+            "enabled": true,
+            "errors": {
+                "failedGlobalAllowedCheck": "This command is globally disabled!",
+                "failedPermissionCheck": ":x: You don't have the permission to use this command!",
+                "failedEnableCheck": ":x: This command is disabled in this server!",
+                "failedBanPermissionCheck": ":x: I don't have the `ban members` permission!",
+                "authorEqualsMember": ":x: You cannot ban yourself!",
+                "ownerEqualsMember": ":x: You cannot ban the server owner!",
+                "protectedRole": ":x: This user has a protected role. You cannot ban this member!",
+                "roleHierarchyError": ":x: You cannot ban this member due to role hierarchy!",
+                "failedToSendToLogsChannel": ":x: I could not send a message to the logs channel. Please ensure that I have the permission to view & send messages there, and that it exists.",
+                "failedToSendDmToMember": "null",
+                "failedTimeConvert": ":x: The time format you provided is invalid! Please use the format `1d 2h 3m 4s`."
+            },
+            "banDefaultReason": "No Reason",
+            "banMessageType": "embed",
+            "banEmbed": {
+                "color": "0x1c7d44",
+                "title": "Ban Command",
+                "url": "null",
+                "description": "**Description:** Bans the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]ban <member> [time] [delete message days] [reason]",
+                "timestamp": true,
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "banSendType": "embed",
+            "banSendEnabled": true,
+            "banSendEmbed": {
+                "color": "0x1c7d44",
+                "title": "null",
+                "url": "null",
+                "description": "***__Successfully banned [member.fullName] | [reason]__***",
+                "timestamp": false,
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "banMessage": "***__Successfully banned [member.fullName]__***",
+            "banLogs": true,
+            "banDm": true,
+            "banDmMessageType": "embed",
+            "banDmEmbed": {
+                "color": "0x1c7d44",
+                "title": "null",
+                "url": "null",
+                "description": "null",
+                "timestamp": "null",
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "banDmMessage": "You have been banned from [server.name]! Reason: [reason]"
+        },
+        "kick": {
+            "enabled": true,
+            "errors": {
+                "failedGlobalAllowedCheck": "This command is globally disabled!",
+                "failedPermissionCheck": ":x: You don't have the permission to use this command!",
+                "failedEnableCheck": ":x: This command is disabled in this server!",
+                "failedKickPermissionCheck": ":x: I don't have the `kick members` permission!",
+                "authorEqualsMember": ":x: You cannot kick yourself!",
+                "ownerEqualsMember": ":x: You cannot kick the server owner!",
+                "protectedRole": ":x: This user has a protected role. You cannot kick this member!",
+                "roleHierarchyError": ":x: You cannot kick this member due to role hierarchy!",
+                "failedToSendToLogsChannel": ":x: I could not send a message to the logs channel. Please ensure that I have the permission to view & send messages there, and that it exists.",
+                "failedToSendDmToMember": "null"
+            },
+            "kickDefaultReason": "No Reason",
+            "kickMessageType": "embed",
+            "kickEmbed": {
+                "color": "0x1c7d44",
+                "title": "Kick Command",
+                "url": "null",
+                "description": "**Description:** kicks the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]kick <member> [reason]",
+                "timestamp": true,
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "kickSendType": "embed",
+            "kickSendEnabled": true,
+            "kickSendEmbed": {
+                "color": "0x1c7d44",
+                "title": "null",
+                "url": "null",
+                "description": "***__Successfully kicked [member.fullName] | [reason]__***",
+                "timestamp": false,
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "kickMessage": "***__Successfully kicked [member.fullName]__***",
+            "kickLogs": true,
+            "kickDm": true,
+            "kickDmMessageType": "embed",
+            "kickDmEmbed": {
+                "color": "0x1c7d44",
+                "title": "null",
+                "url": "null",
+                "description": "null",
+                "timestamp": "null",
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "kickDmMessage": "You have been kicked from [server.name]! Reason: [reason]"
+        },
+        "mute": {
+            "enabled": true,
+            "errors": {
+                "failedGlobalAllowedCheck": "This command is globally disabled!",
+                "failedPermissionCheck": ":x: You don't have the permission to use this command!",
+                "failedEnableCheck": ":x: This command is disabled in this server!",
+                "failedMutePermissionCheck": ":x: I don't have the `Manage Roles` permission!",
+                "authorEqualsMember": ":x: You cannot mute yourself!",
+                "ownerEqualsMember": ":x: You cannot mute the server owner!",
+                "protectedRole": ":x: This user has a protected role. You cannot mute this member!",
+                "roleHierarchyError": ":x: You cannot mute this member due to role hierarchy!",
+                "failedToSendToLogsChannel": ":x: I could not send a message to the logs channel. Please ensure that I have the permission to view & send messages there, and that it exists.",
+                "failedToSendDmToMember": "null",
+                "muteRoleNotFound": ":x: The mute role id that you have specified was not found! Please ensure that you have specified a valid role id.",
+                "memberIsAlreadyMuted": ":x: This member is already muted!"
+            },
+            "muteDefaultReason": "No Reason",
+            "muteMessageType": "embed",
+            "muteEmbed": {
+                "color": "0x1c7d44",
+                "title": "Mute Command",
+                "url": "null",
+                "description": "**Description:** mutes the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]kick <member> [time] [reason]",
+                "timestamp": true,
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "muteSendType": "embed",
+            "muteSendEnabled": true,
+            "muteSendEmbed": {
+                "color": "0x1c7d44",
+                "title": "null",
+                "url": "null",
+                "description": "***__Successfully muted [member.fullName] | [reason]__***",
+                "timestamp": false,
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "muteMessage": "***__Successfully muted [member.fullName]__***",
+            "muteLogs": true,
+            "muteDm": true,
+            "muteDmMessageType": "embed",
+            "muteDmEmbed": {
+                "color": "0x1c7d44",
+                "title": "null",
+                "url": "null",
+                "description": "null",
+                "timestamp": "null",
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "muteDmMessage": "You have been muted in [server.name]! Reason: [reason]"
+        },
+        "unmute": {
+            "enabled": true,
+            "errors": {
+                "failedGlobalAllowedCheck": "This command is globally disabled!",
+                "failedPermissionCheck": ":x: You don't have the permission to use this command!",
+                "failedEnableCheck": ":x: This command is disabled in this server!",
+                "failedMutePermissionCheck": ":x: I don't have the `Manage Roles` permission!",
+                "authorEqualsMember": ":x: You cannot mute yourself!",
+                "ownerEqualsMember": ":x: You cannot mute the server owner!",
+                "protectedRole": ":x: This user has a protected role. You cannot mute this member!",
+                "roleHierarchyError": ":x: You cannot mute this member due to role hierarchy!",
+                "failedToSendToLogsChannel": ":x: I could not send a message to the logs channel. Please ensure that I have the permission to view & send messages there, and that it exists.",
+                "failedToSendDmToMember": "null",
+                "memberIsNotMuted": ":x: This member is not muted!"
+            },
+            "unmuteDefaultReason": "No Reason",
+            "unmuteMessageType": "embed",
+            "unmuteEmbed": {
+                "color": "0x1c7d44",
+                "title": "Unmute Command",
+                "url": "null",
+                "description": "**Description:** unmutes the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]unmute <member> [reason]",
+                "timestamp": true,
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "unmuteSendType": "embed",
+            "unmuteSendEnabled": true,
+            "unmuteSendEmbed": {
+                "color": "0x1c7d44",
+                "title": "null",
+                "url": "null",
+                "description": "***__Successfully unmuted [member.fullName] | [reason]__***",
+                "timestamp": false,
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "unmuteMessage": "***__Successfully unmuted [member.fullName]__***",
+            "unmuteLogs": true,
+            "unmuteDm": true,
+            "unmuteDmMessageType": "embed",
+            "unmuteDmEmbed": {
+                "color": "0x1c7d44",
+                "title": "null",
+                "url": "null",
+                "description": "null",
+                "timestamp": "null",
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "unmuteDmMessage": "You have been muted in [server.name]! Reason: [reason]"
+        },
+        "warn": {
+            "enabled": true,
+            "errors": {
+                "failedGlobalAllowedCheck": "This command is globally disabled!",
+                "failedPermissionCheck": ":x: You don't have the permission to use this command!",
+                "failedEnableCheck": ":x: This command is disabled in this server!",
+                "authorEqualsMember": ":x: You cannot warn yourself!",
+                "ownerEqualsMember": ":x: You cannot warn the server owner!",
+                "protectedRole": ":x: This user has a protected role. You cannot warn this member!",
+                "roleHierarchyError": ":x: You cannot warn this member due to role hierarchy!",
+                "failedToSendToLogsChannel": ":x: I could not send a message to the logs channel. Please ensure that I have the permission to view & send messages there, and that it exists.",
+                "failedToSendDmToMember": "null"
+            },
+            "warnDefaultReason": "No Reason",
+            "warnMessageType": "embed",
+            "warnEmbed": {
+                "color": "0x1c7d44",
+                "title": "Warn Command",
+                "url": "null",
+                "description": "**Description:** Warns the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]warn <member> [reason]",
+                "timestamp": true,
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "warnSendType": "embed",
+            "warnSendEnabled": true,
+            "warnSendEmbed": {
+                "color": "0x1c7d44",
+                "title": "null",
+                "url": "null",
+                "description": "***__Successfully warned [member.fullName] | [reason]__***",
+                "timestamp": false,
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "warnMessage": "***__Successfully warned [member.fullName]__***",
+            "warnLogs": true,
+            "warnDm": true,
+            "warnDmMessageType": "embed",
+            "warnDmEmbed": {
+                "color": "0x1c7d44",
+                "title": "null",
+                "url": "null",
+                "description": "null",
+                "timestamp": "null",
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "warnDmMessage": "You have been warned in [server.name]! Reason: [reason]"
+        },
+        "delete": {
+            "enabled": true,
+            "errors": {
+                "failedGlobalAllowedCheck": "This command is globally disabled!",
+                "failedPermissionCheck": ":x: You don't have the permission to use this command!",
+                "failedEnableCheck": ":x: This command is disabled in this server!",
+                "idNotFound": ":x: The ID you provided was not found!"
+            },
+            "delteMessageType": "embed",
+            "deleteEmbed": {
+                "color": "0x1c7d44",
+                "title": "Delete Command",
+                "url": "null",
+                "description": "**Description:** deletes the given modlog.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]delete <ID>",
+                "timestamp": true,
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "deleteSendType": "embed",
+            "deleteSendEnabled": true,
+            "deleteSendEmbed": {
+                "color": "0x1c7d44",
+                "title": "null",
+                "url": "null",
+                "description": "***__Successfully deleted modlog!__***",
+                "timestamp": false,
+                "author": {
+                    "name": "null",
+                    "url": "null",
+                    "icon_url": "null"
+                },
+                "fields": [],
+                "footer": {
+                    "text": "null",
+                    "icon_url": "null"
+                },
+                "thumbnail_url": "null",
+                "image_url": "null"
+            },
+            "deleteMessage": "***__Successfully modlog!__***"
+        }
+    }
+}
+}
