@@ -211,6 +211,14 @@ class muteCommand(commands.Cog):
                     Add Error logging system here later
                     """
 
+        logToDb(
+            interaction,
+            member=member,
+            type="mute",
+            reason=reason,
+            argTime=time
+        )
+
         if seconds == 0: 
             return
 
@@ -226,14 +234,6 @@ class muteCommand(commands.Cog):
         )
         with open("tasks.json", mode="w") as f:
             json.dump(data, f, indent=4)
-
-        logToDb(
-            interaction,
-            member=member,
-            type="mute",
-            reason=reason,
-            argTime=time
-        )
 
 
 async def setup(bot: Bot) -> None:

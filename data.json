@@ -6,7 +6,18 @@
             "protectedRoles": [],
             "logsChannel": 1027936082018443265,
             "muteRoleId": 1015221614515851365,
-            "modLogs": {},
+            "modLogs": [
+                {
+                    "8b924dc7-f7cd-46e7-b80d-6922697f3da2": {
+                        "member": 706134327200841870,
+                        "moderator": 958390293760184392,
+                        "type": "mute",
+                        "timestamp": 1667952282.242738,
+                        "time": null,
+                        "reason": "k"
+                    }
+                }
+            ],
             "commands": {
                 "ban": {
                     "enabled": true,

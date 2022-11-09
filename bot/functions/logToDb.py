@@ -12,7 +12,7 @@ def logToDb(ctx: Union[discord.Interaction, commands.Context], member: discord.M
     guildData: dict = data[str(ctx.guild.id)]
     guildData['moderation']['modLogs'].append(
         {
-            uuid4():
+            str(uuid4()):
             { 
             "member": member.id,
             "moderator": author.id,

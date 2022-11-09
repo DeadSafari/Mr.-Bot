@@ -12,9 +12,8 @@ def removeFromDb(ctx: Union[discord.Interaction, commands.Context], uuid: str):
     for i in guildData['moderation']['modLogs']:
         if uuid in i:
             guildData['moderation']['modLogs'].remove(i)
+            with open("data.json", mode="w") as f:
+                json.dump(data, f, indent=4)
             return True
         else:
             return False
-
-    with open("data.json", mode="w") as f:
-        json.dump(data, f, indent=4)
