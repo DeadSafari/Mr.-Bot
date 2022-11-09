@@ -71,5 +71,5 @@ async def dashboard():
 async def run():
     await app.run_task(
         host="0.0.0.0",
-        port=os.getenv("PORT")
+        port="5000"
     )

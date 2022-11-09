@@ -9,11 +9,11 @@ def removeFromDb(ctx: Union[discord.Interaction, commands.Context], uuid: str):
         data: dict = json.load(f)
     author = ctx.user
     guildData: dict = data[str(ctx.guild.id)]
-    for i in guildData['moderation']['modLogs']:
-        if uuid in i:
-            guildData['moderation']['modLogs'].remove(i)
+    for modlog in guildData['moderation']['modLogs']:
+        if uuid in modlog:
+            guildData['moderation']['modLogs'].remove(modlog)
             with open("data.json", mode="w") as f:
                 json.dump(data, f, indent=4)
             return True
-        else:
-            return False
+
+    return False

@@ -347,6 +347,86 @@
                     },
                     "unmuteDmMessage": "You have been muted in [server.name]! Reason: [reason]"
                 },
+                "warn": {
+                    "enabled": true,
+                    "errors": {
+                        "failedGlobalAllowedCheck": "This command is globally disabled!",
+                        "failedPermissionCheck": ":x: You don't have the permission to use this command!",
+                        "failedEnableCheck": ":x: This command is disabled in this server!",
+                        "authorEqualsMember": ":x: You cannot warn yourself!",
+                        "ownerEqualsMember": ":x: You cannot warn the server owner!",
+                        "protectedRole": ":x: This user has a protected role. You cannot warn this member!",
+                        "roleHierarchyError": ":x: You cannot warn this member due to role hierarchy!",
+                        "failedToSendToLogsChannel": ":x: I could not send a message to the logs channel. Please ensure that I have the permission to view & send messages there, and that it exists.",
+                        "failedToSendDmToMember": "null"
+                    },
+                    "warnDefaultReason": "No Reason",
+                    "warnMessageType": "embed",
+                    "warnEmbed": {
+                        "color": "0x1c7d44",
+                        "title": "Warn Command",
+                        "url": "null",
+                        "description": "**Description:** Warns the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]warn <member> [reason]",
+                        "timestamp": true,
+                        "author": {
+                            "name": "null",
+                            "url": "null",
+                            "icon_url": "null"
+                        },
+                        "fields": [],
+                        "footer": {
+                            "text": "null",
+                            "icon_url": "null"
+                        },
+                        "thumbnail_url": "null",
+                        "image_url": "null"
+                    },
+                    "warnSendType": "embed",
+                    "warnSendEnabled": true,
+                    "warnSendEmbed": {
+                        "color": "0x1c7d44",
+                        "title": "null",
+                        "url": "null",
+                        "description": "***__Successfully warned [member.fullName] | [reason]__***",
+                        "timestamp": false,
+                        "author": {
+                            "name": "null",
+                            "url": "null",
+                            "icon_url": "null"
+                        },
+                        "fields": [],
+                        "footer": {
+                            "text": "null",
+                            "icon_url": "null"
+                        },
+                        "thumbnail_url": "null",
+                        "image_url": "null"
+                    },
+                    "warnMessage": "***__Successfully warned [member.fullName]__***",
+                    "warnLogs": true,
+                    "warnDm": true,
+                    "warnDmMessageType": "embed",
+                    "warnDmEmbed": {
+                        "color": "0x1c7d44",
+                        "title": "null",
+                        "url": "null",
+                        "description": "null",
+                        "timestamp": "null",
+                        "author": {
+                            "name": "null",
+                            "url": "null",
+                            "icon_url": "null"
+                        },
+                        "fields": [],
+                        "footer": {
+                            "text": "null",
+                            "icon_url": "null"
+                        },
+                        "thumbnail_url": "null",
+                        "image_url": "null"
+                    },
+                    "warnDmMessage": "You have been warned in [server.name]! Reason: [reason]"
+                },
                 "delete": {
                     "enabled": true,
                     "errors": {
