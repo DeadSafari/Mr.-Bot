@@ -1,18 +1,22 @@
 #imports
 import asyncio
+import datetime
 import os
-from quart import Quart, render_template, redirect, url_for
+import time
+from quart import Quart, render_template, redirect, url_for, request
 from quart_discord import DiscordOAuth2Session, requires_authorization, Unauthorized
-from discord.ext import ipc
+from discord.ext import ipc, commands
 import discord
+from bot.botMain import return_bot
+
+    
 
 #create instance of Quart
 app = Quart(__name__)
 
-app.secret_key = b"yesyesyes"
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true"
+app.config['SECRET_KEY'] = "yesyesyes"
 app.config["DISCORD_CLIENT_ID"] = 1033024808146964571
-app.config["DISCORD_CLIENT_SECRET"] = "bvP96KmyC-en8-7NDaAoWoRIE5CreVCi"
+app.config["DISCORD_CLIENT_SECRET"] = "NPAssioS3ROtc5kOS5OUOuGighXk3npH"
 app.config["DISCORD_REDIRECT_URI"] = "http://127.0.0.1:5000/callback"
 app.config["DISCORD_BOT_TOKEN"] = "MTAzMzAyNDgwODE0Njk2NDU3MQ.G2dlAL.0qdXOjAE_0OELzg7MTQ_ywqfO5MW0h4wpn6vW4"
 discord = DiscordOAuth2Session(app)
@@ -25,9 +29,9 @@ async def index():
         urlForCommands=url_for("commands"),
         inviteUrl=url_for("invite"),
         supportServer=url_for('server'),
-        serverCount=5000,
-        userCount="10,000",
-        commandCount="500,000"
+        serverCount=len(app.bot.guilds),
+        userCount=len(app.bot.users),
+        upTime=str(datetime.timedelta(seconds=int(round(time.time()-app.bot.startTime))))
     )
 
 @app.route("/commands")
@@ -63,12 +67,29 @@ async def callback():
     return redirect(url_for("dashboard"))
 
 
-@app.route("/dashboard")
+@app.route("/dashboard", methods=['POST', 'GET'])
 async def dashboard():
+    if request.method == "POST":
+        output = request.form.to_dict()
+        if request.form['commandData'] == "updated":
+            print(request.form)
+            print(output)
+
     user = await discord.fetch_user()
-    return await render_template("dashboard.html", user=user)
+    with open("./website/templates/pages/banCmd.html", "r") as file:
+        banCmd = file.read()
+    return await render_template("/pages/dashboard.html", user=user, banCmd=banCmd)
+
+@app.route("/succesDbUpdate", methods=['GET', 'POST'])
+async def succesDbUpdate():
+    if request.method == "POST":
+        return "k"
+    elif request.method == "GET":
+        return "k ?"
+
 
 async def run():
+    app.bot = return_bot()
     await app.run_task(
         host="0.0.0.0",
         port=os.getenv("PORT")

@@ -28,7 +28,7 @@
                         "failedBanPermissionCheck": ":x: I don't have the `ban members` permission!",
                         "authorEqualsMember": ":x: You cannot ban yourself!",
                         "ownerEqualsMember": ":x: You cannot ban the server owner!",
-                        "protectedRole": ":x: This user has a protected role. You cannot ban this member!",
+                        "protectedRole": ":x: This member has a protected role. You cannot ban this member!",
                         "roleHierarchyError": ":x: You cannot ban this member due to role hierarchy!",
                         "failedToSendToLogsChannel": ":x: I could not send a message to the logs channel. Please ensure that I have the permission to view & send messages there, and that it exists.",
                         "failedToSendDmToMember": "null",
@@ -480,5 +480,9 @@
                 }
             }
         }
+    },
+    "969227540243812383": {
+        "prefix": "?",
+        "stripAfterPrefix": false
     }
 }

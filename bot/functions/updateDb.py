@@ -3,11 +3,11 @@ from discord.ext.commands import Bot
 from bot.functions.addGuildsToDb import addGuildsToDb
 
 def updateDb(bot: Bot):
-    with open("data.json", mode="r") as f:
-        data: dict = json.load(f)
+    with open("data.json", "r") as f:
+        data = json.load(f)
     with open("updates.json", mode="r") as f:
         exp: dict = json.load(f)
-    keys = exp.keys()
+    keys = exp.keys()                           
     for key in data:
         for updatedKey in keys:
             data[key][updatedKey] = exp[updatedKey]

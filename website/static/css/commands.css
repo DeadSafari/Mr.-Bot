@@ -133,6 +133,30 @@ hr {
 	border: 2px solid var(--main-color);
 }
 
+.input-box {
+	background-color: #2f2f30;
+	border: 2px solid var(--main-color);
+	outline: none;
+	border-radius: 20px;
+	color: white;
+	padding: 10px 22px;
+}
+
+.k-button {
+	transition-duration: 0.4s;
+	background-color: #2f2f30;
+    margin: 16px 0 !important;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+    border: 2px solid var(--main-color);
+	border-radius: 12px;
+    color: #FFFFFF;
+    padding: 10px 24px;
+    text-align: center;
+	transition-duration: 0.4s;
+}
+
 .accordion-item {
 	background-color: var(--card-background);
 	border-radius: 8px !important;
@@ -164,6 +188,9 @@ hr {
 	color: #8b8b8b;
 }
 
+.white {
+	color: #ffffff;
+}
 
 ::-webkit-scrollbar {
 	width: 10px;

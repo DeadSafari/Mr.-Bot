@@ -7,7 +7,7 @@ import logging
 from discord.utils import setup_logging
 from dotenv import load_dotenv
 import os
-import json
+import time
 from bot.functions.updateDb import updateDb
 
 class Bot(commands.Bot):
@@ -20,7 +20,6 @@ class Bot(commands.Bot):
 
         #setup an instance of the logging.getLogger
         self.log: logging.getLogger = logging.getLogger("Mr. Bot")
-        
 
         self.TOKEN: str = os.getenv("TOKEN")
 
@@ -32,6 +31,7 @@ class Bot(commands.Bot):
         )
 
     async def on_ready(self):
+        self.startTime = time.time()
         self.log.info("Logged in.")
         self.log.info("Checking & fixing the database...")
         updateDb(
@@ -45,25 +45,32 @@ class Bot(commands.Bot):
         self.log.info(f"Guilds: {len(self.guilds)}")
         self.log.info("===========================================")
         self.loop = asyncio.get_running_loop()
+        
 
     async def on_error(self, error: Exception) -> None:
         traceback.print_exc()
 
+
+intents = discord.Intents.all()
+intents.presences = False
+bot: Bot = Bot(
+    command_prefix="mr.",
+    intents=intents,
+    case_insensitive=True,
+    status=discord.Status.online,
+    activity=discord.Activity(type=discord.ActivityType.watching, name="https://www.mr-bot.ml/"),
+    strip_after_prefix=True,
+    help_command=None
+)
+
+def return_bot():
+    return bot
+
 async def main():
     #load the .env file
     load_dotenv()
-    intents = discord.Intents.all()
-    intents.presences = False
-    bot: Bot = Bot(
-        command_prefix="mr.",
-        intents=intents,
-        case_insensitive=True,
-        status=discord.Status.online,
-        activity=discord.Activity(type=discord.ActivityType.watching, name="https://www.mr-bot.ml/"),
-        strip_after_prefix=True,
-        help_command=None
-    )
     setup_logging()
+    bot.return_bot = return_bot
     for cog in os.listdir("./bot/cogs"):
         if cog.endswith(".py"):
             try:

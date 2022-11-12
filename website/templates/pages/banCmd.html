@@ -1,0 +1,49 @@
+<div class="accordion accordion-flush mt-2" id="ban">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                data-bs-target="#fban">
+                /ban&nbsp; <span class="command-descreption">- Bans the given member.</span>
+            </button>
+        </h2>
+        <div id="fban" class="accordion-collapse collapse" data-bs-parent="#ban">
+            <div class="accordion-body">
+                <span>Usage Examples:</span> <br />
+                <span class="examples">
+
+                    /ban &lt;member&gt; [time] [delete message days] [reason]<br>
+                    /ban @DeadSafari 2h 7 Spamming<br>
+                    /ban @DeadSafari 1d Bad words<br>
+                    /ban @DeadSafari 7 Bad words<br>
+                    /ban @DeadSafari Bad words<br>
+                </span>
+                <span>Configuration:</span><br />
+                <span class="examples">
+                    <form action="{{successDm}}" method="POST">
+                        <span class="white">Error for when the Command is globally disabled:</span><br>
+                        <input class="w-100 input-box" type="text" id="globallyDisabled" name="globallyDisabled" placeholder="This command is globally disabled!"/>
+                        <span class="white">Error for when the command author doesn't have the permission to use it:</span><br>
+                        <input class="w-100 input-box" type="text" id="noPermission" name="noPermission" placeholder=":x: You don't have the permission to use this command!"/>
+                        <span class="white">Error for when the command is disabled in the server:</span><br>
+                        <input class="w-100 input-box" type="text" id="disabled" name="disabled" placeholder=":x: This command is disabled in this server!"/>
+                        <span class="white">Error for when the bot doesn't have the permission to ban:</span>
+                        <input class="w-100 input-box" type="text" id="noBotPermission" name="noBotPermission" placeholder=":x: I don't have the permission to ban!"/>
+                        <span class="white">Error for when the command author is the member:</span>
+                        <input class="w-100 input-box" type="text" id="selfBan" name="selfBan" placeholder=":x: You cannot ban yourself!"/>
+                        <span class="white">Error for when the member is the server owner:</span>
+                        <input class="w-100 input-box" type="text" id="ownerBan" name="ownerBan" placeholder=":x: You cannot ban the server owner!"/>
+                        <span class="white">Error for when the member has a protected role:</span>
+                        <input class="w-100 input-box" type="text" id="protectedRole" name="protectedRole" placeholder=":x: This member has a protected role. You cannot ban this member!"/>
+                        <span class="white">Error for when the bot fails to send the message in the logs channel:</span>
+                        <input class="w-100 input-box" type="text" id="logsChannel" name="logsChannel" placeholder=":x: I could not send a message to the logs channel. Please ensure that I have the permission to view & send messages there, and that it exists."/>
+                        <span class="white">Error for when the bot fails to send a message to the member:</span>
+                        <input class="w-100 input-box" type="text" id="dm" name="dm" placeholder="null"/>
+                        <span class="white">Error for when the bot fails to convert the time:</span>
+                        <input class="w-100 input-box" type="text" id="time" name="time" placeholder=":x: The time format you provided is invalid! Please use the format `1d 2h 3m 4s`."/>
+                        <button class="k-button">Save Changes</button>
+                    </form>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
