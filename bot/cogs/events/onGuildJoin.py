@@ -8,7 +8,7 @@ class onGuildJoin(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        self.bot.log.info("commands.onGuildJoin is now ready!")
+        self.bot.log.info("cogs.events.onGuildJoin is now ready!")
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild: discord.Guild):

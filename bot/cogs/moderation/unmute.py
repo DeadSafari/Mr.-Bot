@@ -17,7 +17,7 @@ from bot.functions.returnLogsChannel import returnLogsChannel
 from bot.functions.returnEmbedOrMessage import returnEmbedOrMessage
 from bot.functions.checksForCommands import checksForCommands
 
-class kickCommand(commands.Cog):
+class unmuteCommand(commands.Cog):
     def __init__(
         self,
         bot: Bot
@@ -26,17 +26,17 @@ class kickCommand(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        self.bot.log.info("commands.Kick is now ready!")
+        self.bot.log.info("cogs.moderation.Unmute is now ready!")
         with open('tasks.json', 'r') as f:
             tasks: dict = json.load(f)
     
     @discord.app_commands.command(
-        name="kick",
-        description="Kicks the given member.",
+        name="unmute",
+        description="Unmutes the given member.",
         # args=[['member', 'The member to ban.', 'required'], ['time', 'The time to ban the member for.', 'optional'], ['delete message days', 'The amount of messages to delete for the member. Defaults to 1.', 'optional'], ['reason', 'The reason for banning this member', 'optional']]
     )
-    @discord.app_commands.describe(member="The member to kick.")
-    @discord.app_commands.describe(reason="The reason for kicking this member. (optional)")
+    @discord.app_commands.describe(member="The member to unmute")
+    @discord.app_commands.describe(reason="The reason for muting this member. (optional)")
     @discord.app_commands.guilds(900465934257520671)
     @discord.app_commands.check(isGloballyEnabled)
     @discord.app_commands.check(isEnabled)
@@ -63,6 +63,8 @@ class kickCommand(commands.Cog):
                 await interaction.followup.send(embed=response)
                 return
 
+
+
         errorMessage = checksForCommands(
             ctx=interaction,
             member=member,
@@ -76,6 +78,14 @@ class kickCommand(commands.Cog):
         if not reason:
             reason = commandData[interaction.command.name+'DefaultReason']
 
+        if member.get_role(guildData['moderation']['muteRoleId']) is None:
+            error = formatString(
+                commandData['errors']['memberIsNotMuted'],
+                member=member,
+                ctx=interaction,
+                reason=reason
+            )
+            return await interaction.followup.send(content=error)
         if commandData[interaction.command.name+"SendType"] == "embed":
             response = returnEmbedOrMessage(interaction, reason=reason, member=member, embedData=commandData[interaction.command.name+'SendEmbed'])
     
@@ -115,12 +125,10 @@ class kickCommand(commands.Cog):
                     )
 
         try:
-            await interaction.guild.kick(
-                member,
-                reason=formatString(reason, ctx=interaction, member=member, reason=reason)
-            )
+            await member.remove_roles(interaction.guild.get_role(guildData['moderation']['muteRoleId']))
+            pass
         except Exception as e:
-            await interaction.followup.send(content="Hey this is rare. For some reason, I was unable to kick this member. You might wanna try again. This error has already been logged, and we're working on fixing it! Sorry for the inconvenience!")
+            await interaction.followup.send(content="Hey this is rare. For some reason, I was unable to unmute this member. You might wanna try again. This error has already been logged, and we're working on fixing it! Sorry for the inconvenience!")
 
             """
             Add Error logging system here later
@@ -138,7 +146,7 @@ class kickCommand(commands.Cog):
         if commandData[interaction.command.name+"Logs"]:
             embed = discord.Embed(
                 color=discord.Color.from_str(os.getenv('DEFAULTEMBEDCOLOR')),
-                title="Member Kicked",
+                title="Member Unmuted",
                 description=f"I can't be arsed to make this a custom thing yet. So here's the default embed. Sorry!"
             )
             channel = returnLogsChannel(self.bot, interaction.guild.id)
@@ -154,7 +162,7 @@ class kickCommand(commands.Cog):
         logToDb(
             interaction,
             member=member,
-            type="kick",
+            type="unmute",
             reason=reason,
             argTime="N/A"
         )
@@ -162,7 +170,7 @@ class kickCommand(commands.Cog):
 
 async def setup(bot: Bot) -> None:
     await bot.add_cog(
-        kickCommand(
+        unmuteCommand(
             bot=bot
         )
     )

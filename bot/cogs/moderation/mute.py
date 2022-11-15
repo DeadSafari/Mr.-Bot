@@ -17,7 +17,7 @@ from bot.functions.returnLogsChannel import returnLogsChannel
 from bot.functions.returnEmbedOrMessage import returnEmbedOrMessage
 from bot.functions.checksForCommands import checksForCommands
 
-class banCommand(commands.Cog):
+class muteCommand(commands.Cog):
     def __init__(
         self,
         bot: Bot
@@ -26,28 +26,28 @@ class banCommand(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        self.bot.log.info("commands.Ban is now ready!")
+        self.bot.log.info("cogs.moderation.Mute is now ready!")
         with open('tasks.json', 'r') as f:
             tasks: dict = json.load(f)
-        for task in tasks['bans']:
+        for task in tasks['mutes']:
             member = self.bot.get_user(task['member'])
             if member is None: 
                 member = await self.bot.fetch_user(task['member'])
                 if member is None: continue
             guild = self.bot.get_guild(task['guild'])
             if guild is None: continue
-            self.bot.loop.call_later(task['timestamp'], asyncio.create_task(guild.unban(member)))
+            role = guild.get_role(task['role_id'])
+            self.bot.loop.call_later(task['timestamp'], asyncio.create_task(member.remove_roles(role)))
 
     
     @discord.app_commands.command(
-        name="ban",
-        description="Bans the given member.",
+        name="mute",
+        description="Mutes the given member.",
         # args=[['member', 'The member to ban.', 'required'], ['time', 'The time to ban the member for.', 'optional'], ['delete message days', 'The amount of messages to delete for the member. Defaults to 1.', 'optional'], ['reason', 'The reason for banning this member', 'optional']]
     )
-    @discord.app_commands.describe(member="The member to ban.")
-    @discord.app_commands.describe(time="The time to ban the member for. (optional)")
-    @discord.app_commands.describe(delete_message_days="The amount of messages to delete for the member. Default 1 (optional)")
-    @discord.app_commands.describe(reason="The reason for banning this member. (optional)")
+    @discord.app_commands.describe(member="The member to mute.")
+    @discord.app_commands.describe(time="The time to mute the member for. (optional)")
+    @discord.app_commands.describe(reason="The reason for muting this member. (optional)")
     @discord.app_commands.guilds(900465934257520671)
     @discord.app_commands.check(isGloballyEnabled)
     @discord.app_commands.check(isEnabled)
@@ -57,7 +57,6 @@ class banCommand(commands.Cog):
         interaction: discord.Interaction,
         member: Union[discord.Member, discord.User] = None,
         time: Optional[str] = None,
-        delete_message_days: Optional[int] = 0,
         reason: Optional[str] = None
     ):
         await interaction.response.defer()
@@ -122,6 +121,15 @@ class banCommand(commands.Cog):
         if not reason:
             reason = commandData[interaction.command.name+'DefaultReason']
 
+        if member.get_role(guildData['moderation']['muteRoleId']):
+            error = formatString(
+                commandData['errors']['memberIsAlreadyMuted'],
+                member=member,
+                ctx=interaction,
+                reason=reason
+            )
+            return await interaction.followup.send(content=error)
+
         if commandData[interaction.command.name+"SendType"] == "embed":
             response = returnEmbedOrMessage(interaction, reason=reason, member=member, embedData=commandData[interaction.command.name+'SendEmbed'])
     
@@ -160,14 +168,18 @@ class banCommand(commands.Cog):
                         )
                     )
 
+        muteRole = interaction.guild.get_role(guildData['moderation']['muteRoleId'])
+        if muteRole is None:
+            await interaction.followup.send(content=formatString(commandData['errors']['muteRoleNotFound'],
+                ctx=interaction,
+                member=member,
+                reason=formatString(reason, ctx=interaction, member=member, reason=reason)))
+            return
+
         try:
-            await interaction.guild.ban(
-                member,
-                reason=formatString(reason, ctx=interaction, member=member, reason=reason),
-                delete_message_days=delete_message_days
-            )
+            await member.add_roles(muteRole, reason=formatString(reason, ctx=interaction, member=member, reason=reason))
         except Exception as e:
-            await interaction.followup.send(content="Hey this is rare. For some reason, I was unable to ban this member. You might wanna try again. This error has already been logged, and we're working on fixing it! Sorry for the inconvenience!")
+            await interaction.followup.send(content="Hey this is rare. For some reason, I was unable to add the mute role to this member. You might wanna try again. This error has already been logged, and we're working on fixing it! Sorry for the inconvenience!")
 
             """
             Add Error logging system here later
@@ -185,7 +197,7 @@ class banCommand(commands.Cog):
         if commandData[interaction.command.name+"Logs"]:
             embed = discord.Embed(
                 color=discord.Color.from_str(os.getenv('DEFAULTEMBEDCOLOR')),
-                title="Member Banned",
+                title="Member Muted",
                 description=f"I can't be arsed to make this a custom thing yet. So here's the default embed. Sorry!"
             )
             channel = returnLogsChannel(self.bot, interaction.guild.id)
@@ -199,34 +211,34 @@ class banCommand(commands.Cog):
                     Add Error logging system here later
                     """
 
-        if seconds == 0: 
-            return
-
-        self.bot.loop.call_later(seconds, asyncio.create_task(member.unban()))
-        
-        with open("tasks.json", mode="r") as f:
-            data: dict = json.load(f)
-        
-        timestamp_unban = datetime.datetime.timestamp(datetime.datetime.utcnow() + datetime.timedelta(seconds=seconds))
-
-        data['bans'].append(
-            {"type": "ban", "member": member.id, "guild": interaction.guild.id, "timestamp": timestamp_unban}
-        )
-        with open("tasks.json", mode="w") as f:
-            json.dump(data, f, indent=4)
-
         logToDb(
             interaction,
             member=member,
-            type="ban",
+            type="mute",
             reason=reason,
             argTime=time
         )
 
+        if seconds == 0: 
+            return
+
+        self.bot.loop.call_later(seconds, asyncio.create_task(member.remove_roles(muteRole)))
+        
+        with open("tasks.json", mode="r") as f:
+            data: dict = json.load(f)
+        
+        timestamp_unmute = datetime.datetime.timestamp(datetime.datetime.utcnow() + datetime.timedelta(seconds=seconds))
+
+        data['mute'].append(
+            {"type": "mute", "member": member.id, "guild": interaction.guild.id, "timestamp": timestamp_unmute, "role_id": guildData['moderation']['muteRoleId']}
+        )
+        with open("tasks.json", mode="w") as f:
+            json.dump(data, f, indent=4)
+
 
 async def setup(bot: Bot) -> None:
     await bot.add_cog(
-        banCommand(
+        muteCommand(
             bot=bot
         )
     )

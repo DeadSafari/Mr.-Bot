@@ -8,7 +8,7 @@ class commandLogging(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        self.bot.log.info("cogs.CommandLogging is now ready!")
+        self.bot.log.info("cogs.logging.CommandLogging is now ready!")
 
     @commands.Cog.listener()
     async def on_command(self, ctx: commands.Context):

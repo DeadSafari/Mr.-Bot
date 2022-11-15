@@ -17,7 +17,7 @@ from bot.functions.returnLogsChannel import returnLogsChannel
 from bot.functions.returnEmbedOrMessage import returnEmbedOrMessage
 from bot.functions.checksForCommands import checksForCommands
 
-class unmuteCommand(commands.Cog):
+class warnCommand(commands.Cog):
     def __init__(
         self,
         bot: Bot
@@ -26,22 +26,22 @@ class unmuteCommand(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        self.bot.log.info("commands.Unmute is now ready!")
+        self.bot.log.info("cogs.moderation.Warn is now ready!")
         with open('tasks.json', 'r') as f:
             tasks: dict = json.load(f)
     
     @discord.app_commands.command(
-        name="unmute",
-        description="Unmutes the given member.",
+        name="warn",
+        description="Warns the given member.",
         # args=[['member', 'The member to ban.', 'required'], ['time', 'The time to ban the member for.', 'optional'], ['delete message days', 'The amount of messages to delete for the member. Defaults to 1.', 'optional'], ['reason', 'The reason for banning this member', 'optional']]
     )
-    @discord.app_commands.describe(member="The member to unmute")
-    @discord.app_commands.describe(reason="The reason for muting this member. (optional)")
+    @discord.app_commands.describe(member="The member to warn.")
+    @discord.app_commands.describe(reason="The reason for warning this member. (optional)")
     @discord.app_commands.guilds(900465934257520671)
     @discord.app_commands.check(isGloballyEnabled)
     @discord.app_commands.check(isEnabled)
     @discord.app_commands.check(checkForPerms)
-    async def _kick(
+    async def _warn(
         self,
         interaction: discord.Interaction,
         member: Union[discord.Member, discord.User] = None,
@@ -63,8 +63,6 @@ class unmuteCommand(commands.Cog):
                 await interaction.followup.send(embed=response)
                 return
 
-
-
         errorMessage = checksForCommands(
             ctx=interaction,
             member=member,
@@ -78,14 +76,6 @@ class unmuteCommand(commands.Cog):
         if not reason:
             reason = commandData[interaction.command.name+'DefaultReason']
 
-        if member.get_role(guildData['moderation']['muteRoleId']) is None:
-            error = formatString(
-                commandData['errors']['memberIsNotMuted'],
-                member=member,
-                ctx=interaction,
-                reason=reason
-            )
-            return await interaction.followup.send(content=error)
         if commandData[interaction.command.name+"SendType"] == "embed":
             response = returnEmbedOrMessage(interaction, reason=reason, member=member, embedData=commandData[interaction.command.name+'SendEmbed'])
     
@@ -124,20 +114,6 @@ class unmuteCommand(commands.Cog):
                         )
                     )
 
-        try:
-            await member.remove_roles(interaction.guild.get_role(guildData['moderation']['muteRoleId']))
-            pass
-        except Exception as e:
-            await interaction.followup.send(content="Hey this is rare. For some reason, I was unable to unmute this member. You might wanna try again. This error has already been logged, and we're working on fixing it! Sorry for the inconvenience!")
-
-            """
-            Add Error logging system here later
-            """
-
-            return
-
-
-
         if isinstance(response, discord.Embed):
             await interaction.followup.send(embed=response)
         else:
@@ -146,7 +122,7 @@ class unmuteCommand(commands.Cog):
         if commandData[interaction.command.name+"Logs"]:
             embed = discord.Embed(
                 color=discord.Color.from_str(os.getenv('DEFAULTEMBEDCOLOR')),
-                title="Member Unmuted",
+                title="Member Warned",
                 description=f"I can't be arsed to make this a custom thing yet. So here's the default embed. Sorry!"
             )
             channel = returnLogsChannel(self.bot, interaction.guild.id)
@@ -162,7 +138,7 @@ class unmuteCommand(commands.Cog):
         logToDb(
             interaction,
             member=member,
-            type="unmute",
+            type="warn",
             reason=reason,
             argTime="N/A"
         )
@@ -170,7 +146,7 @@ class unmuteCommand(commands.Cog):
 
 async def setup(bot: Bot) -> None:
     await bot.add_cog(
-        unmuteCommand(
+        warnCommand(
             bot=bot
         )
     )

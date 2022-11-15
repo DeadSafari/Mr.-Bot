@@ -91,6 +91,5 @@ async def succesDbUpdate():
 async def run():
     app.bot = return_bot()
     await app.run_task(
-        host="0.0.0.0",
-        port=os.getenv("PORT")
+        host="0.0.0.0"
     )

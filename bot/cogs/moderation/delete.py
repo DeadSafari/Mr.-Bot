@@ -24,7 +24,7 @@ class deleteCommand(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        self.bot.log.info("commands.Delete is now ready!")
+        self.bot.log.info("cogs.moderation.Delete is now ready!")
         with open('tasks.json', 'r') as f:
             tasks: dict = json.load(f)
     

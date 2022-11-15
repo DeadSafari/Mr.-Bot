@@ -12,7 +12,7 @@ class giveawayCommands(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        self.bot.log.info("cogs.Giveaway is now ready!")
+        self.bot.log.info("cogs.giveaway.Giveaway is now ready!")
 
     @commands.hybrid_command(
         name="gcreate",

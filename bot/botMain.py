@@ -72,9 +72,11 @@ async def main():
     setup_logging()
     bot.return_bot = return_bot
     for cog in os.listdir("./bot/cogs"):
-        if cog.endswith(".py"):
-            try:
-                await bot.load_extension(f"bot.cogs.{cog[:-3]}")
-            except:
-                traceback.print_exc()
+        if cog != "__pycache__":
+            for file in os.listdir("./bot/cogs/"+cog):
+                if file.endswith(".py"):
+                    try:
+                        await bot.load_extension("bot.cogs."+cog+"."+file[:-3])
+                    except Exception as e:
+                        traceback.print_exc()
     await bot.start(os.getenv('TOKEN'))
