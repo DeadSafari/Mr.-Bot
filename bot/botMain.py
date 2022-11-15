@@ -8,7 +8,6 @@ from discord.utils import setup_logging
 from dotenv import load_dotenv
 import os
 import time
-from bot.functions.updateDb import updateDb
 
 class Bot(commands.Bot):
     def __init__(
@@ -34,9 +33,6 @@ class Bot(commands.Bot):
         self.startTime = time.time()
         self.log.info("Logged in.")
         self.log.info("Checking & fixing the database...")
-        updateDb(
-            bot=self
-        )
         self.log.info("Finished checking & fixing the database.")
         self.log.info("===========================================")
         self.log.info(f"Bot Name: {self.user}")

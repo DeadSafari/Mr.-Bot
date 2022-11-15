@@ -4,20 +4,9 @@
             "moderatorRoles": [],
             "administratorRoles": [],
             "protectedRoles": [],
-            "logsChannel": 1027936082018443265,
-            "muteRoleId": 1015221614515851365,
-            "modLogs": [
-                {
-                    "8b924dc7-f7cd-46e7-b80d-6922697f3da2": {
-                        "member": 706134327200841870,
-                        "moderator": 958390293760184392,
-                        "type": "mute",
-                        "timestamp": 1667952282.242738,
-                        "time": null,
-                        "reason": "k"
-                    }
-                }
-            ],
+            "logsChannel": "null",
+            "muteRoleId": "null",
+            "modLogs": [],
             "commands": {
                 "ban": {
                     "enabled": true,
@@ -121,7 +110,7 @@
                         "color": "0x1c7d44",
                         "title": "Kick Command",
                         "url": "null",
-                        "description": "**Description:** kicks the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]kick <member> [reason]",
+                        "description": "**Description:** Kicks the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]kick <member> [reason]",
                         "timestamp": true,
                         "author": {
                             "name": "null",
@@ -204,7 +193,7 @@
                         "color": "0x1c7d44",
                         "title": "Mute Command",
                         "url": "null",
-                        "description": "**Description:** mutes the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]kick <member> [time] [reason]",
+                        "description": "**Description:** Mutes the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]kick <member> [time] [reason]",
                         "timestamp": true,
                         "author": {
                             "name": "null",
@@ -286,7 +275,7 @@
                         "color": "0x1c7d44",
                         "title": "Unmute Command",
                         "url": "null",
-                        "description": "**Description:** unmutes the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]unmute <member> [reason]",
+                        "description": "**Description:** Unmutes the given member.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]unmute <member> [reason]",
                         "timestamp": true,
                         "author": {
                             "name": "null",
@@ -440,7 +429,7 @@
                         "color": "0x1c7d44",
                         "title": "Delete Command",
                         "url": "null",
-                        "description": "**Description:** deletes the given modlog.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]delete <ID>",
+                        "description": "**Description:** Deletes the given modlog.\n**Cooldown:** 5 Seconds\n**Usage:** [prefix]delete <ID>",
                         "timestamp": true,
                         "author": {
                             "name": "null",
@@ -480,13 +469,5 @@
                 }
             }
         }
-    },
-    "969227540243812383": {
-        "prefix": "?",
-        "stripAfterPrefix": false
-    },
-    "961272524207960094": {
-        "prefix": "?",
-        "stripAfterPrefix": false
     }
 }
