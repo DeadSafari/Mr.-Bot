@@ -10,4 +10,4 @@ class Levelling(commands.Cog):
         self.bot.log.info("cogs.levelling.Levelling is now ready!")
 
 async def setup(bot):
-    bot.add_cog(Levelling(bot))
+    await bot.add_cog(Levelling(bot))

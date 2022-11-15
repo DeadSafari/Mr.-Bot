@@ -13,31 +13,31 @@ def checksForCommands(ctx: Union[commands.Context, discord.Interaction], member:
             member=member
         ))
     if author == member:
-        return ctx.followup.send(content=formatString(
+        return formatString(
             commandData['errors']['authorEqualsMember'],
             ctx=ctx,
             reason=reason,
             member=member
-        ))
+        )
         
     if member == ctx.guild.owner:
-        return ctx.followup.send(content=formatString(
+        return formatString(
             commandData['errors']['ownerEqualsMember'],
             ctx=ctx,
             reason=reason,
             member=member
-        ))
+        )
     if isProtected(ctx=ctx, member=member):
-        return ctx.followup.send(content=formatString(
+        return formatString(
             commandData['errors']['protectedRole'],
             ctx=ctx,
             member=member,
             reason=reason
-        ))
+        )
     if not author.top_role > member.top_role:
-        return ctx.followup.send(content=formatString(
+        return formatString(
             commandData['errors']['roleHierarchyError'],
             ctx=ctx,
             member=member,
             reason=reason
-        ))
+        )

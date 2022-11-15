@@ -10,4 +10,4 @@ class Economy(commands.Cog):
         self.bot.log.info("cogs.economy.Economy is now ready!")
 
 async def setup(bot):
-    bot.add_cog(Economy(bot))
+    await bot.add_cog(Economy(bot))

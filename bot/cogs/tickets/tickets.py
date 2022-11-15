@@ -10,4 +10,4 @@ class Ticket(commands.Cog):
         self.bot.log.info("cogs.tickets.tickets is now ready!")
 
 async def setup(bot):
-    bot.add_cog(Ticket(bot))
+    await bot.add_cog(Ticket(bot))
