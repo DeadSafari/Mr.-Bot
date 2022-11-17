@@ -29,6 +29,9 @@ class Bot(commands.Bot):
             )
         )
 
+    async def on_command_error(self, ctx, error):
+        print("we got a command error")
+
     async def on_ready(self):
         self.startTime = time.time()
         self.log.info("Logged in.")
@@ -41,11 +44,6 @@ class Bot(commands.Bot):
         self.log.info(f"Guilds: {len(self.guilds)}")
         self.log.info("===========================================")
         self.loop = asyncio.get_running_loop()
-        
-
-    async def on_error(self, error: Exception) -> None:
-        traceback.print_exc()
-
 
 intents = discord.Intents.all()
 intents.presences = False

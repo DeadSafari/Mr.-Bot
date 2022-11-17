@@ -8,12 +8,12 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
 from typing import List, Tuple, Union, Optional
-from bot.functions.checkForPerms import checkForPerms
-from bot.functions.formatString import formatString 
-from bot.functions.isEnabled import isEnabled
-from bot.functions.isGloballyEnabled import isGloballyEnabled
-from bot.functions.returnEmbedOrMessage import returnEmbedOrMessage
-from bot.functions.removeFromDb import removeFromDb
+from bot.cogs.moderation.functions.checkForPerms import checkForPerms
+from bot.cogs.moderation.functions.formatString import formatString 
+from bot.cogs.moderation.functions.isEnabled import isEnabled
+from bot.cogs.moderation.functions.isGloballyEnabled import isGloballyEnabled
+from bot.cogs.moderation.functions.returnEmbedOrMessage import returnEmbedOrMessage
+from bot.cogs.moderation.functions.removeFromDb import removeFromDb
 
 class deleteCommand(commands.Cog):
     def __init__(

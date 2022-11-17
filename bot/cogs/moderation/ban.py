@@ -8,14 +8,14 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
 from typing import List, Tuple, Union, Optional
-from bot.functions.checkForPerms import checkForPerms
-from bot.functions.formatString import formatString 
-from bot.functions.isEnabled import isEnabled
-from bot.functions.isGloballyEnabled import isGloballyEnabled
-from bot.functions.logToDb import logToDb
-from bot.functions.returnLogsChannel import returnLogsChannel
-from bot.functions.returnEmbedOrMessage import returnEmbedOrMessage
-from bot.functions.checksForCommands import checksForCommands
+from bot.cogs.moderation.functions.checkForPerms import checkForPerms
+from bot.cogs.moderation.functions.formatString import formatString 
+from bot.cogs.moderation.functions.isEnabled import isEnabled
+from bot.cogs.moderation.functions.isGloballyEnabled import isGloballyEnabled
+from bot.cogs.moderation.functions.logToDb import logToDb
+from bot.cogs.moderation.functions.returnLogsChannel import returnLogsChannel
+from bot.cogs.moderation.functions.returnEmbedOrMessage import returnEmbedOrMessage
+from bot.cogs.moderation.functions.checksForCommands import checksForCommands
 
 class banCommand(commands.Cog):
     def __init__(

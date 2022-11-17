@@ -468,6 +468,30 @@
                     "deleteMessage": "***__Successfully modlog!__***"
                 }
             }
+        },
+        "tickets": {
+            "ticketsChannel": 1027936082018443265,
+            "setup": {
+                "setupEmbed": {
+                    "color": "0x1c7d44",
+                    "title": "Lanti Shuks ticket embed",
+                    "url": "null",
+                    "description": "k ? ticket embed testing sex cum this is kingdom CUM.",
+                    "timestamp": true,
+                    "author": {
+                        "name": "null",
+                        "url": "null",
+                        "icon_url": "null"
+                    },
+                    "fields": [],
+                    "footer": {
+                        "text": "null",
+                        "icon_url": "null"
+                    },
+                    "thumbnail_url": "null",
+                    "image_url": "null"
+                }
+            }
         }
     }
 }
