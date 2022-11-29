@@ -2,7 +2,7 @@
 import asyncio
 import traceback
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 import logging
 from discord.utils import setup_logging
 from dotenv import load_dotenv
@@ -20,6 +20,8 @@ class Bot(commands.Bot):
         #setup an instance of the logging.getLogger
         self.log: logging.getLogger = logging.getLogger("Mr. Bot")
 
+        self.startTime: int = time.time()
+
         self.TOKEN: str = os.getenv("TOKEN")
 
     async def setup_hook(self) -> None:
@@ -30,7 +32,6 @@ class Bot(commands.Bot):
         )
 
     async def on_ready(self):
-        self.startTime = time.time()
         self.log.info("Logged in.")
         self.log.info("Checking & fixing the database...")
         self.log.info("Finished checking & fixing the database.")
@@ -76,3 +77,5 @@ async def main():
                     except Exception as e:
                         traceback.print_exc()
     await bot.start(os.getenv('TOKEN'))
+
+#sudo /usr/bin/python3.10 "/media/deadsafari/DeadSafari's backup/code/Mr. Bot/main.py"
